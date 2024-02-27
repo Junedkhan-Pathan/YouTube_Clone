@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import ButtonsShimmer from "./ShimmerUI/ButtonsShimmer";
+import CategoryTagShimmer from "./ShimmerUI/CategoryTagShimmer";
 import { DummyTags } from "../utils/constants";
 import { getVideoCategoryTags } from "../apis/videoApi";
 import NextButton from "../assets/light_44.svg";
@@ -86,7 +86,7 @@ const CategoryList = () => {
           ref={listRef}
         >
           {loading ? (
-            <ButtonsShimmer />
+            <CategoryTagShimmer />
           ) : (
             <>
               {tags.length > 0 && (

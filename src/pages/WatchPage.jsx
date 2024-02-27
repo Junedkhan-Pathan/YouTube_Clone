@@ -1,13 +1,12 @@
 import React, { useMemo, useState } from "react";
-import ChannelData from "../HomePageContainer/WatchPageData/ChannelData";
+import ChannelData from "../components/HomePageContainer/WatchPageData/ChannelData";
 import { useSearchParams } from "react-router-dom";
-import CommentsData from "../HomePageContainer/WatchPageData/CommentsData";
+import CommentsData from "../components/HomePageContainer/WatchPageData/CommentsData";
 import LiveChat from "../HomePageContainer/WatchPageData/LiveChat";
 import RelatedVideoPage from "./RelatedVideoPage";
 
 const WatchPage = () => {
   const [container, setContainer] = useState(true);
-  // useSearchParams is used for accessing and manipulating URL parameters.
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const videoSrc = useMemo(

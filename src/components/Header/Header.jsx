@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import youTubeLogo from "../assets/light_5.svg";
-import toggleIcon from "../assets/light_4.svg";
-import micIcon from "../assets/light_6.svg";
-import createVideoIcon from "../assets/light_7.svg";
-import notificatoinIcon from "../assets/light_8.svg";
+import youTubeLogo from "../../assets/light_5.svg";
+import toggleIcon from "../../assets/light_4.svg";
+import micIcon from "../../assets/light_6.svg";
+import createVideoIcon from "../../assets/light_7.svg";
+import notificatoinIcon from "../../assets/light_8.svg";
 
-import Profile from "../assets/Profile.svg";
+import Profile from "../../assets/Profile.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "./SearchBar";
-import { toggleMenu } from "../store/appSlice";
+import SearchBar from "../SearchBar";
+import { toggleMenu } from "../../store/appSlice";
 
 const Header = () => {
   const dispatch = useDispatch();

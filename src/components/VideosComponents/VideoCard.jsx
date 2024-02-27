@@ -3,11 +3,11 @@ import {
   timeDuration,
   formatTime,
   formatNumberWithSuffix,
-} from "../utils/constants";
+} from "../../utils/constants";
 import { Link } from "react-router-dom";
-import { getChannelInfo } from "../apis/videoApi";
+import { getChannelInfo } from "../../apis/videoApi";
 import { useDispatch } from "react-redux";
-import { addChannel } from "../store/channelSlice";
+import { addChannel } from "../../store/channelSlice";
 
 const VideoCard = ({ info }) => {
   const [isHovered, setIsHovered] = useState(false);

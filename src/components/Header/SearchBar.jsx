@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import { searchedResultsCache } from "../store/searchSlice";
+import { searchedResultsCache } from "../../store/searchSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import searchButton from "../assets/light_102.svg";
 import toggleCloseButton from "../assets/light_2.svg";
-import { getSearchSuggestions } from "../apis/videoApi";
+import { getSearchSuggestions } from "../../apis/videoApi";
 
 const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
   const [searchQuery, setSearchQuery] = useState("");

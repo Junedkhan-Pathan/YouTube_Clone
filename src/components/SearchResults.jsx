@@ -5,8 +5,8 @@ import { YOUTUBE_SEARCH_API } from '../utils/APIList';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import CustomError from './CustomError'
 import SearchVideoPage from '../pages/SearchVideoPage';
-import SearchVideoShimmer from '../components/ShimmerUI/SearchVideoShimmer';
-import CategoryList from '../components/CategoryList';
+import SearchVideoShimmer from './ShimmerUI/SearchVideoShimmer';
+import CategoryList from './CategoryList';
 
 const SearchResults = () => {
   const [searchParam] = useSearchParams();

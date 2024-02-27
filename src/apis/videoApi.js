@@ -60,3 +60,17 @@ export const getVideoCategoryTags = async () => {
         console.log("Erroe while fetching category tags", error)
     }
 }
+
+
+//Comments api function 
+
+export const getCommentsData = async () => {
+    try {
+        const res = await fetch(conf_variables.baseUrl + conf_variables.categoriesTags + conf_variables.secretKey)
+            .then((data) => data.json())
+            .then((data) => data.items?.map((item) => item.snippet?.title))
+        return res
+    } catch (error) {
+        console.log("Erroe while fetching category tags", error)
+    }
+}

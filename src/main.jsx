@@ -8,8 +8,8 @@ import ExploreVideoPage from "./pages/ExploreVideoPage.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import App from "./App.jsx";
-import ChannelVideoPage from "./pages/ChannelVideoPage.jsx";
-const WatchPage = lazy("./pages/WatchPage.jsx");
+import SubScriptionPage from "./pages/SubScriptionPage.jsx";
+const WatchPage = lazy(() => import("./pages/WatchPage.jsx"));
 
 const router = createBrowserRouter([
   {
@@ -38,16 +38,8 @@ const router = createBrowserRouter([
         element: <ExploreVideoPage />,
       },
       {
-        path: "/feed/you",
-        element: <ExploreVideoPage />,
-      },
-      {
-        path: "/shorts",
-        element: <ExploreVideoPage />,
-      },
-      {
         path: "/channel",
-        element: <ChannelVideoPage/>,
+        element: <SubScriptionPage />,
       },
     ],
   },

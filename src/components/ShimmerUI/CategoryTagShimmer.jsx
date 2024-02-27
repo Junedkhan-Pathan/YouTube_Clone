@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
-const ButtonsShimmer = () => {
+const CategoryTagShimmer = () => {
   return (
     <div className='flex lg:w-[90.2vw] md:w-[80vw] max-sm:w-[94vw] md:h-8 gap-4 max-sm:h-8 animate-pulse'>
       {Array(12).fill('').map((_, index) => (
@@ -13,4 +13,4 @@ const ButtonsShimmer = () => {
   );
 };
 
-export default ButtonsShimmer;
+export default CategoryTagShimmer;

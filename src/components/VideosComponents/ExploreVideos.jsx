@@ -1,9 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { CHANNEL_INFO_API, VIDEO_DETAILS_API } from '../utils/APIList';
-import { formatTime, formatNumberWithSuffix, timeDuration } from '../utils/constants';
+import { CHANNEL_INFO_API, VIDEO_DETAILS_API } from '../../utils/APIList';
+import { formatTime, formatNumberWithSuffix, timeDuration } from '../../utils/constants';
 
 const ExploreVideos = ({ info, videoId }) => {
 

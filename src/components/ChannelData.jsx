@@ -8,8 +8,8 @@ import { CiBellOn } from 'react-icons/ci'
 import { PiShareFat, PiDotsThreeBold } from 'react-icons/pi'
 import { MdOutlineDownloading } from 'react-icons/md'
 import { HiOutlineChevronDown } from 'react-icons/hi2'
-import { CHANNEL_INFO_API, VIDEO_DETAILS_API } from '../../utils/APIList'
-import { formatNumberWithSuffix, formatTime } from '../../utils/constants'
+import { CHANNEL_INFO_API, VIDEO_DETAILS_API } from '../utils/APIList'
+import { formatNumberWithSuffix, formatTime } from '../utils/constants'
 
 const ChannelData = ({ videoId }) => {
   const [videoData, setVideoData] = useState({});

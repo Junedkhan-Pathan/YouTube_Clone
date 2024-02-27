@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
-import VideoShimmer from "./ShimmerUI/VideoShimmer";
+import VideoShimmer from "../ShimmerUI/VideoShimmer";
 import CustomError from "../HomePageContainer/CustomError";
 import { NavLink } from "react-router-dom";
-import { getAllVideos } from "../apis/videoApi";
+import { getAllVideos } from "../../apis/videoApi";
 import { useDispatch, useSelector } from "react-redux";
-import { addVideos } from "../store/videosSlice";
+import { addVideos } from "../../store/videosSlice";
 
 const VideoContainer = () => {
   const videos = useSelector((state) => state.videos);
