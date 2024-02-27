@@ -1,0 +1,12 @@
+  
+  for scroll to top:
+  const handleScrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+
+owner url : https://github.com/onkar895/YouTube-UI/tree/master/src
+My YouTube api :https://console.cloud.google.com/apis/api/youtube.googleapis.com/metrics?authuser=1&project=youtube-415007&supportedpurview=project

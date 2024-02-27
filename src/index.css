@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", "Arial", "sans-serif";
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* body::-webkit-scrollbar-track {
+    cursor: pointer;
+} */
+
+body::-webkit-scrollbar {
+  width: 8px;
+  cursor: pointer;
+  /* overflow:scroll; */
+  
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgb(92, 90, 90);
+  height: 50px !important;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  border-radius: 12px;
+  background-color: white;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 0;
+  background-color: white;
+}
+
+.sidebar:hover::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgb(125, 123, 123);
+  border-radius: 12px;
+}
+
+.scrollBar::-webkit-scrollbar {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+.sidebar-open {
+  animation: slideIn 0.2s ease-in-out both;
+}
+
+.lock-scrollbar {
+  overflow-y: scroll !important;
+  position: fixed;
+}
+
+@keyframes slideIn {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.blur-effect {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  pointer-events: none;
+}
+
+
+.chatScroll::-webkit-scrollbar-track {
+  border-radius: 12px;
+}
+
+.chatScroll::-webkit-scrollbar {
+  width: 0;
+  background-color: rgb(231, 227, 227);
+}
+
+.chatScroll:hover::-webkit-scrollbar {
+  width: 7px;
+}
+
+.chatScroll::-webkit-scrollbar-thumb {
+  background-color: rgb(135, 133, 133);
+  border-radius: 12px;
+}
