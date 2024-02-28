@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { YOUTUBE_SEARCH_API } from "../utils/APIList";
 import { NavLink, useSearchParams } from "react-router-dom";
-import CustomError from "../HomePageContainer/CustomError";
-import ChannelVideoPage from "../components/ChannelVideoPage";
+import CustomError from "../components/Error/CustomError";
 import CategoryList from "../components/CategoryList";
 import VideoShimmer from "../components/ShimmerUI/VideoShimmer";
+import ChannelVideoPage from "./ChannelVideoPage";
 
 const SubScriptionPage = () => {
   const [videos, setVideos] = useState([]);

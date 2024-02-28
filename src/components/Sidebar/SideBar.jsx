@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import {
   Explore,
@@ -8,13 +6,13 @@ import {
   Home,
   Subscriptions,
 } from "../../utils/constants.jsx";
-import youTubeLogo from "../assets/light_5.svg";
+import youTubeLogo from "../../assets/light_5.svg";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../../store/appSlice.js";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { NavLink, useLocation, useSearchParams } from "react-router-dom";
-import toggleIcon from "../assets/light_4.svg";
+import { NavLink } from "react-router-dom";
+import toggleIcon from "../../assets/light_4.svg";
 import YouIcon from "../../assets/YouIcon.jsx";
 import SubscriptionsIcon from "../../assets/SubscriptionsIcon.jsx";
 import ShortsIcon from "../../assets/ShortsIcon.jsx";
@@ -27,7 +25,6 @@ const SideBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
   const handleChannelButtonClick = (ButtonName) => {
     const Query = ButtonName.replace(" ", "+");
     setSelectedButton(Query);
@@ -63,8 +60,6 @@ const SideBar = () => {
       setIsLoading(false); // Stop loading
     }, 3000);
   };
-
-
 
   return (
     <div className={SideBarStyle}>

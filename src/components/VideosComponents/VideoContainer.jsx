@@ -1,26 +1,29 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
 import VideoShimmer from "../ShimmerUI/VideoShimmer";
-import CustomError from "../HomePageContainer/CustomError";
-import { NavLink } from "react-router-dom";
+import CustomError from "../Error/CustomError";
+import { NavLink, useLocation } from "react-router-dom";
 import { getAllVideos } from "../../apis/videoApi";
 import { useDispatch, useSelector } from "react-redux";
 import { addVideos } from "../../store/videosSlice";
 
 const VideoContainer = () => {
   const videos = useSelector((state) => state.videos);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
+  const location = useLocation();
+
   useEffect(() => {
     getVideos();
-  }, []);
+  }, [location.state?.category]);
 
   const getVideos = async () => {
     setLoading(true);
+    const category = location?.state?.category || "All";
     try {
-      const videos = await getAllVideos();
+      const videos = await getAllVideos(category);
       if (!videos) {
         throw new Error("Somthing went wrong while fetching videos");
       }
@@ -41,8 +44,8 @@ const VideoContainer = () => {
         <VideoShimmer />
       ) : (
         videos[0].map((video) => (
-          <NavLink to={`/watch?v=${video.id}`} key={video.id}>
-            <VideoCard info={video} videoId={video.id} />
+          <NavLink to={`/watch?v=${video.id}`}>
+            <VideoCard info={video} videoId={video.id} key={video?.id} />
           </NavLink>
         ))
       )}

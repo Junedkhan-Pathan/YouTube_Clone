@@ -8,7 +8,7 @@ import notificatoinIcon from "../../assets/light_8.svg";
 import Profile from "../../assets/Profile.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "../SearchBar";
+import SearchBar from "./SearchBar";
 import { toggleMenu } from "../../store/appSlice";
 
 const Header = () => {

@@ -5,7 +5,7 @@ const videoSlice = createSlice({
     initialState: [],
     reducers: {
         addVideos: (state, action) => {
-            state = state.push(action.payload);
+            state = state.unshift(action.payload);
         }
     }
 })

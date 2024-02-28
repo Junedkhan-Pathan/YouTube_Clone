@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { YOUTUBE_SEARCH_API } from "../utils/APIList";
 import { NavLink, useSearchParams } from "react-router-dom";
-import CustomError from "../HomePageContainer/CustomError";
-import ExploreVideos from "../components/ExploreVideos";
+import CustomError from "../components/Error/CustomError";
+import ExploreVideos from "../components/VideosComponents/ExploreVideos";
 import VideoShimmer from "../components/ShimmerUI/VideoShimmer";
 import CategoryList from "../components/CategoryList";
+import VideoCard from "../components/VideosComponents/VideoCard";
 
 const ExploreVideoPage = () => {
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const [searchParam] = useSearchParams();
+  const [searchParam,setSearchParams] = useSearchParams();
   const explore = searchParam.get("eq");
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -65,7 +66,7 @@ const ExploreVideoPage = () => {
                 to={"/watch?v=" + video?.id?.videoId}
                 key={video?.id?.videoId}
               >
-                <ExploreVideos info={video} videoId={video?.id?.videoId} />
+                <VideoCard info={video} videoId={video?.id?.videoId} />
               </NavLink>
             ))
           )}

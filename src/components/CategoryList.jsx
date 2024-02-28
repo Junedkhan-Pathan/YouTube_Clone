@@ -101,11 +101,13 @@ const CategoryList = () => {
                             : ""
                         }`}
                         onClick={() => {
-                          if (name === "All") {
-                            navigate("/");
-                          } else {
-                            navigate(`/explore?eq=${name.replace(" ", "+")}`);
-                          }
+                          // navigate(`/explore?eq=${name.replace(" ", "+")}`);
+                          navigate("/", {
+                            state: {
+                              category: `${name.replace(" ", "+")}`,
+                            },
+                          });
+
                           setSelectedCategory(name);
                         }}
                       >

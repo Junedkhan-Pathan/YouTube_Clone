@@ -26,8 +26,8 @@ const VideoCard = ({ info }) => {
       if (!res) {
         return null;
       }
-      dispatch(addChannel(res));
       setChannelPhoto(res.snippet?.thumbnails?.default?.url);
+      dispatch(addChannel(res));
     } catch (error) {
       console.log("Erroe in the videocard component", error);
     }
@@ -35,7 +35,7 @@ const VideoCard = ({ info }) => {
 
   const { snippet, statistics, contentDetails } = info;
   const { title, channelTitle, thumbnails, publishedAt } = snippet;
-  const duration = timeDuration(contentDetails.duration);
+  const duration = timeDuration(contentDetails?.duration);
   const calender = formatTime(publishedAt);
   const viewCount = statistics?.viewCount
     ? formatNumberWithSuffix(statistics.viewCount)
@@ -57,7 +57,7 @@ const VideoCard = ({ info }) => {
               width="100%"
               height="100%"
               src={`https://www.youtube.com/embed/${info.id}?autoplay=1&mute=1`}
-              title={info.snippet.title}
+              title={info.snippet?.title}
               frameBorder="0"
               allowFullScreen
               autoPlay
