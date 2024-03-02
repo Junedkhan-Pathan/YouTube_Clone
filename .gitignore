@@ -6,7 +6,7 @@
 /node_modules
 /.pnp
 .pnp.js
-/trash.txt
+.trash.txt
 
 # testing
 /coverage
