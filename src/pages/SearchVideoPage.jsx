@@ -27,7 +27,6 @@ const SearchVideoPage = ({ info, videoId }) => {
       const data = await fetch(VIDEO_DETAILS_API + "&id=" + videoId);
       const response = await data.json();
       setVideos(response?.items?.[0] || {}); // Ensure items array exists
-      console.log(response?.items?.[0]);
     } catch (error) {
       console.log("Error while fetching video details", error);
     }

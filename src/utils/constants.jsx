@@ -1,27 +1,27 @@
-import { MdHomeFilled } from "react-icons/md";
-import { MdSubscriptions } from "react-icons/md";
-import { SiYoutubeshorts } from "react-icons/si";
-import { IoMdTrendingUp } from "react-icons/io";
-import { HiShoppingBag } from "react-icons/hi2";
-import { MdMusicNote } from "react-icons/md";
-import { BiSolidMoviePlay } from "react-icons/bi";
-import { RiLiveFill } from "react-icons/ri";
-import { SiYoutubegaming } from "react-icons/si";
-import { PiStudentFill } from "react-icons/pi";
-import { SiShopify } from "react-icons/si";
-import { GiTrophy } from "react-icons/gi";
-import { SiGooglenews } from "react-icons/si";
-import { FaYoutube } from "react-icons/fa";
-import { SiYoutubestudio } from "react-icons/si";
-import { SiYoutubemusic } from "react-icons/si";
-import { TfiYoutube } from "react-icons/tfi";
-import { IoSettingsSharp } from "react-icons/io5";
-import { RiChatHistoryFill } from "react-icons/ri";
-import { IoMdHelpCircle } from "react-icons/io";
-import { MdFeedback } from "react-icons/md";
-import HomeIcon from "../assets/HomeIcon";
-import SubscriptionsIcon from "../assets/SubscriptionsIcon";
-import ShortsIcon from "../assets/ShortsIcon";
+import {
+  HomeIcon,
+  SubscriptionsIcon,
+  ShortsIcon,
+  TrendingIcon,
+  ShopingIcon,
+  MusicIcon,
+  FilmIcon,
+  LiveIcon,
+  SportsIcon,
+  NewsIcon,
+  GamingIcon,
+  LearningIcon,
+  FashionBeautyIcon,
+  PodcastIcon,
+  YouTubePremiumIcon,
+  YouTubeStudioIcon,
+  YouTubeMusic,
+  YouTubeKids,
+  SettingIcon,
+  ReportHistoryIcon,
+  HelpIcon,
+  FeedbackIcon,
+} from "../assets/Index";
 
 export const Home = [
   {
@@ -78,81 +78,85 @@ export const Subscriptions = [
 
 export const Explore = [
   {
-    icon: <IoMdTrendingUp className="w-5 h-10" />,
+    icon: <TrendingIcon className="w-5 h-10" />,
     name: "Trending",
   },
   {
-    icon: <HiShoppingBag className="w-5 h-10" />,
+    icon: <ShopingIcon className="w-5 h-10" />,
     name: "Shopping",
   },
   {
-    icon: <MdMusicNote className="w-5 h-10" />,
+    icon: <MusicIcon className="w-5 h-10" />,
     name: "Music",
   },
   {
-    icon: <BiSolidMoviePlay className="w-5 h-10" />,
+    icon: <FilmIcon className="w-5 h-10" />,
     name: "Movies",
   },
   {
-    icon: <RiLiveFill className="w-5 h-10" />,
+    icon: <LiveIcon className="w-5 h-10" />,
     name: "Live",
   },
   {
-    icon: <GiTrophy className="w-5 h-10" />,
+    icon: <SportsIcon className="w-5 h-10" />,
     name: "Sports",
   },
   {
-    icon: <SiGooglenews className="w-5 h-10" />,
+    icon: <NewsIcon className="w-5 h-10" />,
     name: "News",
   },
   {
-    icon: <SiYoutubegaming className="w-5 h-10" />,
+    icon: <GamingIcon className="w-5 h-10" />,
     name: "Gaming",
   },
   {
-    icon: <PiStudentFill className="w-5 h-10" />,
+    icon: <LearningIcon className="w-5 h-10" />,
     name: "Learning",
   },
   {
-    icon: <SiShopify className="w-5 h-10" />,
+    icon: <FashionBeautyIcon className="w-5 h-10" />,
     name: "Fashion & Beauty",
+  },
+  {
+    icon: <PodcastIcon className="w-5 h-10" />,
+    name: "Podcasts",
   },
 ];
 
 export const Premium = [
   {
-    icon: <FaYoutube className="w-5 h-10" />,
+    icon: <YouTubePremiumIcon className="w-5 h-10" />,
     name: "YouTube Premium",
   },
   {
-    icon: <SiYoutubestudio className="w-5 h-10" />,
+    icon: <YouTubeStudioIcon className="w-5 h-10" />,
     name: "YouTube Studio",
   },
   {
-    icon: <SiYoutubemusic className="w-5 h-10" />,
+    icon: <YouTubeMusic className="w-5 h-10" />,
     name: "YouTube Music",
   },
   {
-    icon: <TfiYoutube className="w-5 h-10" />,
+    icon: <YouTubeKids className="w-5 h-10" />,
     name: "YouTube Kids",
   },
 ];
 
 export const Setting = [
   {
-    icon: <IoSettingsSharp className="w-5 h-10" />,
+    icon: <SettingIcon className="w-5 h-10" />,
     name: "Settings",
   },
   {
-    icon: <RiChatHistoryFill className="w-5 h-10" />,
+    icon: <ReportHistoryIcon className="w-5 h-10" />,
     name: "Report History",
   },
   {
-    icon: <IoMdHelpCircle className="w-5 h-10" />,
+    icon: <HelpIcon className="w-5 h-10" />,
     name: "Help",
   },
   {
-    icon: <MdFeedback className="w-5 h-10" />,
+    icon: <FeedbackIcon className="w-5 h-10" />,
     name: "Send Feedback",
   },
 ];
@@ -206,7 +210,6 @@ export const formatTime = (time) => {
     }
   }
 };
-
 
 // export function timeDuration(duration) {
 //   const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);

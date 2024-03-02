@@ -1,3 +1,7 @@
+Project Issues:-
+1] state not change of the category tag when we come from other page..
+like it reamin All tage while the videos are oter category
+  
   
   for scroll to top:
   const handleScrollTop = () => {
@@ -8,11 +12,3 @@
   };
 
 
-owner url : https://github.com/onkar895/YouTube-UI/tree/master/src
-My YouTube api :https://console.cloud.google.com/apis/api/youtube.googleapis.com/metrics?authuser=1&project=youtube-415007&supportedpurview=project
-
-
-
-https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=&key=AIzaSyCnQCOJD0ngLMmARRgsY3px4oUnXsNHLmc&q=Sports&regionCode=IN&type=video
-
-https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=&key=&q=Sports&regionCode=IN&type=videoAIzaSyCcLmILyIP-d5zNGKfEkhnCPlqxcJEzx74

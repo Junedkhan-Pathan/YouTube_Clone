@@ -8,6 +8,7 @@ import { MdOutlineDownloading } from "react-icons/md";
 import { HiOutlineChevronDown } from "react-icons/hi2";
 import { CHANNEL_INFO_API, VIDEO_DETAILS_API } from "../utils/APIList";
 import { formatNumberWithSuffix, formatTime } from "../utils/constants";
+import { getChannelInfo, getVideoDataById } from "../apis/videoApi";
 
 const ChannelData = ({ videoId }) => {
   const [videoData, setVideoData] = useState({});
@@ -23,43 +24,75 @@ const ChannelData = ({ videoId }) => {
   const viewCount = formatNumberWithSuffix(videoData?.statistics?.viewCount);
   let calender = formatTime(videoData?.snippet?.publishedAt);
 
-  useEffect(() => {
-    fetchVideoData();
-  }, [videoId]);
+  // useEffect(() => {
+  //   fetchVideoData();
+  // }, [videoId]);
 
-  const fetchVideoData = async () => {
+  // const fetchVideoData = async () => {
+  //   try {
+  //     const data = await fetch(VIDEO_DETAILS_API + "&id=" + videoId);
+  //     const response = await data.json();
+  //     setVideoData(response?.items?.[0] || {});
+  //   } catch (error) {
+  //     console.log("Error while fetching video details", error);
+  //   }
+  // };
+
+  // const fetchChannelData = async () => {
+  //   try {
+  //     const data = await fetch(
+  //       CHANNEL_INFO_API + "&id=" + videoData?.snippet?.channelId
+  //     );
+  //     const response = await data.json();
+  //     const profilePictureUrl =
+  //       response?.items?.[0]?.snippet?.thumbnails?.default?.url || "";
+  //     const subScribers =
+  //       response?.items?.[0]?.statistics?.subscriberCount || "";
+  //     setChannelPicture(profilePictureUrl);
+  //     setSubScribers(subScribers);
+  //   } catch (error) {
+  //     console.log("Couldn't fetch channel data", error);
+  //   }
+  // };
+
+  const getVideosById = async () => {
     try {
-      const data = await fetch(VIDEO_DETAILS_API + "&id=" + videoId);
-      const response = await data.json();
-      setVideoData(response?.items?.[0] || {});
-      console.log(videoData);
+      if (!videoId) return;
+      const video = await getVideoDataById(videoId);
+      if (!video) {
+        return null;
+      }
+      setVideoData(video || {});
     } catch (error) {
-      console.log("Error while fetching video details", error);
+      console.log("Error while fethnig video by its id", error);
     }
   };
+
+  const channelData = async (id) => {
+    try {
+      const res = await getChannelInfo(id);
+      if (!res) {
+        return null;
+      }
+      setChannelPicture(res.snippet?.thumbnails?.default?.url);
+      setSubScribers(res.statistics?.subscriberCount || "");
+    } catch (error) {
+      console.log(
+        "Erroe in the videocard component while fetching channelInfo",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    getVideosById();
+  }, [videoId]);
 
   useEffect(() => {
     if (videoData?.snippet?.channelId) {
-      fetchChannelData();
+      channelData(videoData?.snippet?.channelId);
     }
   }, [videoData?.snippet?.channelId]);
-
-  const fetchChannelData = async () => {
-    try {
-      const data = await fetch(
-        CHANNEL_INFO_API + "&id=" + videoData?.snippet?.channelId
-      );
-      const response = await data.json();
-      const profilePictureUrl =
-        response?.items?.[0]?.snippet?.thumbnails?.default?.url || "";
-      const subScribers =
-        response?.items?.[0]?.statistics?.subscriberCount || "";
-      setChannelPicture(profilePictureUrl);
-      setSubScribers(subScribers);
-    } catch (error) {
-      console.log("Couldn't fetch channel data", error);
-    }
-  };
 
   const handleLikeToggle = () => {
     setLike(!like);

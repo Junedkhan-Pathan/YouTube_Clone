@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import youTubeLogo from "../../assets/light_5.svg";
-import toggleIcon from "../../assets/light_4.svg";
-import micIcon from "../../assets/light_6.svg";
-import createVideoIcon from "../../assets/light_7.svg";
-import notificatoinIcon from "../../assets/light_8.svg";
-
+import {
+  YouTubeLogo,
+  ToggleIcon,
+  MicIcon,
+  CreateVideoIcon,
+  NotificationIcon,
+} from "../../assets/Index.js";
 import Profile from "../../assets/Profile.svg";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -22,21 +23,17 @@ const Header = () => {
       <div
         className={`${
           isMiniScreen ? "max-sm:hidden" : ""
-        }flex items-center md:gap-1 max-sm:gap-1`}
+        } flex items-center gap-2 max-sm:gap-1`}
       >
-        <div className="p-1 hover:bg-gray-200 hover:rounded-full">
-          <img
-            src={toggleIcon}
-            className="cursor-pointer"
-            onClick={() => dispatch(toggleMenu())}
-          />
+        <div
+          className="hover:bg-gray-200 hover:rounded-full cursor-pointer p-2"
+          onClick={() => dispatch(toggleMenu())}
+        >
+          <ToggleIcon />
         </div>
-        <img
-          src={youTubeLogo}
-          alt="YouTubeLogo"
-          className="h-5 cursor-pointer ml-2"
-          onClick={() => navigate("/")}
-        />
+        <div className="w-24 cursor-pointer" onClick={() => navigate("/")}>
+          <YouTubeLogo />
+        </div>
       </div>
 
       {/* SearchBar Component */}
@@ -46,28 +43,24 @@ const Header = () => {
           setIsminiScreen={setIsminiScreen}
         />
         <div className=" bg-gray-100 cursor-pointer hover:bg-gray-200 rounded-full p-[9.5px] max-sm:hidden ">
-          <img src={micIcon} className="text-xl" alt="Mic button" />
+          <MicIcon />
         </div>
       </div>
 
       {/* Create,notification,user icons */}
-      <div className="flex items-center gap-6 text-[22px]">
-        <img
-          src={createVideoIcon}
-          alt=""
-          className="hover:cursor-pointer md:flex hidden text-black"
-        />
+      <div className="flex items-center gap-6 text-[22px] hover:cursor-pointer text-black">
+        <div className="p-2 hover:bg-gray-200 rounded-full md:flex hidden">
+          <CreateVideoIcon />
+        </div>
         <div
           className={`${
             isMiniScreen ? "max-sm:hidden" : ""
-          } relative hover:rounded-full hover:bg:gray-200`}
+          }hover:cursor-pointer bg text-black relative hover:rounded-full hover:bg:gray-200  `}
         >
-          <img
-            src={notificatoinIcon}
-            alt=""
-            className="hover:cursor-pointer relative text-black"
-          />
-          <span className="absolute bottom-3 left-3 text-xs bg-red-600 rounded-full px-1 text-white hover:cursor-pointer">
+          <div className="p-2 hover:bg-gray-200 rounded-full">
+            <NotificationIcon />
+          </div>
+          <span className="absolute bottom-5 left-5 text-xs bg-red-600 rounded-full px-1 text-white hover:cursor-pointer">
             9+
           </span>
         </div>

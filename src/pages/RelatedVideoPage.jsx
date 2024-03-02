@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from "react";
-import RelatedVideos from "../components/RelatedVideos";
 import { NavLink } from "react-router-dom";
-import { YOUTUBE_VIDEO_API } from "../utils/APIList";
+import RelatedVideos from "../components/VideosComponents/RelatedVideos";
+import { getAllVideos } from "../apis/videoApi";
 
 const RelatedVideoPage = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading data
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
+    getVideos();
   }, []);
 
-  useEffect(() => {
-    getRelatedVideos();
-  });
-
-  const getRelatedVideos = async () => {
+  const getVideos = async () => {
+    setLoading(true);
     try {
-      const data = await fetch(YOUTUBE_VIDEO_API);
-      if (!data.ok) {
-        throw new Error(`Failed to fetch videos. Status: ${data.status}`);
+      const videos = await getAllVideos();
+      if (!videos) {
+        throw new Error("Somthing went wrong while fetching releted videos");
       }
-      const response = await data.json();
-      setVideos(response?.items);
-      console.log(response?.items);
+      setVideos(videos);
+      setLoading(false);
     } catch (error) {
-      console.error("Error while fetching the videos:", error);
+      setError(error);
+      console.log("Error while fething the releted videos..", error);
     }
   };
 

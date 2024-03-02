@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 import { searchedResultsCache } from "../../store/searchSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import searchButton from "../../assets/light_102.svg";
-import toggleCloseButton from "../../assets/light_2.svg";
+import { ToggleCloseIcon, SearchIcon } from "../../assets/Index";
 import { getSearchSuggestions } from "../../apis/videoApi";
 
 const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
@@ -109,9 +108,9 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
 
           {isInputFocused && (
             <div className="absolute flex items-center lg:ml-[1.4rem] md:ml-[1.4rem]">
-              <button className="max-sm:hidden ">
-                <img src={searchButton} alt="" className="h-5" />
-              </button>
+              <div className=" max-sm:hidden">
+                <SearchIcon />
+              </div>
             </div>
           )}
 
@@ -123,12 +122,8 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
                   : "max-sm:hidden"
               } absolute lg:right-[27rem] md:right-[18.8rem] flex items-center`}
             >
-              <button onClick={handleClearSearch} className={``}>
-                <img
-                  src={toggleCloseButton}
-                  alt=""
-                  className="h-6 m-2 cursor-pointer"
-                />
+              <button onClick={handleClearSearch} className={`mr-6`}>
+                <ToggleCloseIcon />
               </button>
             </div>
           )}
@@ -150,7 +145,8 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
               handleSearch(event, searchQuery);
             }}
           >
-            <img src={searchButton} alt="search button" />
+            {/* <img src={searchButton} alt="search button" /> */}
+            <SearchIcon />
           </button>
         </div>
 

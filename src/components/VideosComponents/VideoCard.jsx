@@ -4,15 +4,17 @@ import {
   formatTime,
   formatNumberWithSuffix,
 } from "../../utils/constants";
-import { Link } from "react-router-dom";
-import { getChannelInfo } from "../../apis/videoApi";
+import { Link, useNavigate } from "react-router-dom";
+import { getChannelInfo, getVideoDataById } from "../../apis/videoApi";
 import { useDispatch } from "react-redux";
 import { addChannel } from "../../store/channelSlice";
 
-const VideoCard = ({ info }) => {
+const VideoCard = ({ info, videoId }) => {
+  const [videos, setVideos] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
   const [channelPhoto, setChannelPhoto] = useState("");
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     if (info) {
@@ -27,22 +29,40 @@ const VideoCard = ({ info }) => {
         return null;
       }
       setChannelPhoto(res.snippet?.thumbnails?.default?.url);
-      dispatch(addChannel(res));
+      // dispatch(addChannel(res));
     } catch (error) {
-      console.log("Erroe in the videocard component", error);
+      console.log(
+        "Erroe in the videocard component while fetching channelInfo",
+        error
+      );
     }
   };
 
+  const getVideosById = async () => {
+    try {
+      if (!videoId) return;
+      const video = await getVideoDataById(videoId);
+      if (!video) {
+        return null;
+      }
+      setVideos(video || {});
+    } catch (error) {
+      console.log("Error while fethnig video by its id", error);
+    }
+  };
+
+  useEffect(() => {
+    getVideosById();
+  }, [videoId]);
+
   const { snippet, statistics, contentDetails } = info;
   const { title, channelTitle, thumbnails, publishedAt } = snippet;
-  const duration = timeDuration(contentDetails?.duration);
+  const extractDuration =
+    contentDetails?.duration || videos?.contentDetails?.duration || 0;
+  const duration = timeDuration(extractDuration);
   const calender = formatTime(publishedAt);
-  const viewCount = statistics?.viewCount
-    ? formatNumberWithSuffix(statistics.viewCount)
-    : 0;
-  const likeCount = statistics?.likeCount
-    ? formatNumberWithSuffix(statistics.likeCount)
-    : 0;
+  const views = statistics?.viewCount || videos?.statistics?.viewCount;
+  const viewCount = views ? formatNumberWithSuffix(views) : 0;
 
   return (
     <div
@@ -50,7 +70,7 @@ const VideoCard = ({ info }) => {
       onMouseOver={() => setIsHovered(true)}
       onMouseOut={() => setIsHovered(false)}
     >
-      <div className="relative">
+      <div className={"relative"}>
         {isHovered && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center cursor-pointer justify-center rounded-2xl">
             <iframe
@@ -59,9 +79,14 @@ const VideoCard = ({ info }) => {
               src={`https://www.youtube.com/embed/${info.id}?autoplay=1&mute=1`}
               title={info.snippet?.title}
               frameBorder="0"
-              allowFullScreen
+              // allowFullScreen
               autoPlay
-              className="rounded-2xl"
+              className={`${
+                isHovered ? "" : "rounded-2xl ease-in-out duration-100 "
+              }`}
+              onClick={() => {
+                navigate(`/watch?v=${videoId}`);
+              }}
             ></iframe>
           </div>
         )}
@@ -83,10 +108,10 @@ const VideoCard = ({ info }) => {
           />
         </div>
         <div className="w-9/12 flex flex-col">
-          <div className="overflow-hidden h-12 font-bold text-[16px]">
+          <div className="overflow-hidden h-fit font-bold text-[16px]">
             {title.length > 100 ? title.slice(0, 90) + "..." : title}
           </div>
-          <Link to={"/"}>
+          <Link to={`/channel?cId=${channelTitle.replace("", "+")}`}>
             <div className=" text-stone-600 hover:text-stone-900 font-medium md:text-[14px]">
               {channelTitle}
             </div>

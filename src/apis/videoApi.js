@@ -1,16 +1,9 @@
-import { allDummyData, allPetsDummyData } from "../../dummyData";
+
 import conf_variables from "../conf/conf"
 
-
 //for the home page all videos
-export const getAllVideos = async (category = "All") => {
-    const videosCategory = category === "All" ? conf_variables.defaultVideos : `${conf_variables.searchUrl}q=${category}&regionCode=IN&type=video&key=`;
-    // if(category === "All"){
-    //     return allDummyData?.items
-    // }else{
-    //     return allPetsDummyData.items
-    // }
-
+export const getAllVideos = async (query = "All") => {
+    const videosCategory = query === "All" ? conf_variables.defaultVideos : `${conf_variables.searchUrl}q=${query}&regionCode=IN&type=video&key=`;
     try {
         const videos = await fetch(
             conf_variables.baseUrl
@@ -71,19 +64,6 @@ export const getVideoCategoryTags = async () => {
     }
 }
 
-
-//Comments api function 
-export const getCommentsData = async () => {
-    try {
-        const res = await fetch(conf_variables.baseUrl + conf_variables.categoriesTags + conf_variables.secretKey)
-            .then((data) => data.json())
-            .then((data) => data.items?.map((item) => item.snippet?.title))
-        return res
-    } catch (error) {
-        console.log("Erroe while fetching category tags", error)
-    }
-}
-
 //For getting the perticular video data by id
 export const getVideoDataById = async (id) => {
     try {
@@ -99,6 +79,25 @@ export const getVideoDataById = async (id) => {
         return video.items[0]
     } catch (error) {
         console.log("Error while fetching video by its ID :", error)
+        throw error
+    }
+}
+
+//For perticular video comments data
+export const getCommentsOfVideos = async (id) => {
+    try {
+        const comments = await fetch(
+            conf_variables.baseUrl
+            + conf_variables.commentsUrl
+            + conf_variables.secretKey
+            + `&videoId=${id}`)
+            .then((data) => data.json());
+        if (!comments) {
+            return null
+        }
+        return comments.items
+    } catch (error) {
+        console.log("Error while fetching comments of video :", error)
         throw error
     }
 }

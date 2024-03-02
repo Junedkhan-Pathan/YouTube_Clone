@@ -1,12 +1,13 @@
 import React, { useMemo, useState } from "react";
-import ChannelData from "../components/HomePageContainer/WatchPageData/ChannelData";
+// import ChannelData from "../components/HomePageContainer/WatchPageData/ChannelData";
 import { useSearchParams } from "react-router-dom";
-import CommentsData from "../components/HomePageContainer/WatchPageData/CommentsData";
-import LiveChat from "../HomePageContainer/WatchPageData/LiveChat";
 import RelatedVideoPage from "./RelatedVideoPage";
+import CommentsData from "../components/CommentsChats/CommentsData";
+import LiveChat from "../components/CommentsChats/LiveChat";
+import ChannelData from "../components/ChannelData";
 
 const WatchPage = () => {
-  const [container, setContainer] = useState(true);
+  // const [container, setContainer] = useState(true);
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const videoSrc = useMemo(
@@ -17,9 +18,7 @@ const WatchPage = () => {
   return (
     <div>
       <div
-        className={`${
-          container ? "lg:flex" : "md:flex-col max-sm:flex-col"
-        } md:gap-4 md:mt-[4rem] max-sm:mt-[4.8rem] space-y-5 lg:space-y-0 md:mx-[1.82rem] max-sm:mx-[0.65rem] max-sm:w-[95vw] md:w-[92.5vw] lg:w-[64.5vw]`}
+        className={`lg:flex max-sm:flex-col md:gap-4 md:mt-[4rem] max-sm:mt-[4.8rem] space-y-5 lg:space-y-0 md:mx-[1.82rem] max-sm:mx-[0.65rem] max-sm:w-[95vw] md:w-[92.5vw] lg:w-[64.5vw]`}
       >
         <div>
           <div>
@@ -45,7 +44,7 @@ const WatchPage = () => {
         </div>
       </div>
       <div className="lg:hidden">
-        <CommentsData />
+        <CommentsData videoId={videoId} />
       </div>
     </div>
   );
