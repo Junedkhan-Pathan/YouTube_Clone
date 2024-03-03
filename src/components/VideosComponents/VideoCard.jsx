@@ -109,7 +109,7 @@ const VideoCard = ({ info, videoId }) => {
         </div>
         <div className="w-9/12 flex flex-col">
           <div className="overflow-hidden h-fit font-bold text-[16px]">
-            {title.length > 100 ? title.slice(0, 90) + "..." : title}
+            {title.length > 65 ? title.trim().slice(0, 60) + "..." : title}
           </div>
           <Link to={`/channel?cId=${channelTitle.replace("", "+")}`}>
             <div className=" text-stone-600 hover:text-stone-900 font-medium md:text-[14px]">

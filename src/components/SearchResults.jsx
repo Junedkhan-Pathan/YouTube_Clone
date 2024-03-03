@@ -26,7 +26,6 @@ const SearchResults = () => {
         throw new Error("Somthing went wrong while fetching search videos");
       }
       setVideos(videos);
-      // dispatch(addVideos(videos));
       setLoading(false);
     } catch (error) {
       setError(error);

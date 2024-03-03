@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CategoryTagShimmer from "./ShimmerUI/CategoryTagShimmer";
 import { DummyTags } from "../utils/constants";
 import { getVideoCategoryTags } from "../apis/videoApi";
-import NextButton from "../assets/light_44.svg";
-import PreviouButton from "../assets/light_43.svg";
+import { PreviousButtonIcon, NextButtonIcon } from "../assets/Index.js";
 
 const CategoryList = () => {
   const listRef = useRef();
@@ -57,11 +56,9 @@ const CategoryList = () => {
             className="bg-white absolute left-0 "
             onClick={() => sliderHandler("previous")}
           >
-            <img
-              src={PreviouButton}
-              alt=""
-              className="w-8 h-8 mx-1 bg-white rounded-full hover:bg-gray-200"
-            />
+            <div className="w-8 p-1 mx-1 bg-white rounded-full hover:bg-gray-200">
+              <PreviousButtonIcon />
+            </div>
           </button>
         </div>
         <div className={hideButton === "next" ? "hidden" : ""}>
@@ -69,11 +66,9 @@ const CategoryList = () => {
             className="bg-white absolute right-0 "
             onClick={() => sliderHandler("next")}
           >
-            <img
-              src={NextButton}
-              alt=""
-              className="w-8 h-8 mx-1 bg-white rounded-full hover:bg-slate-200"
-            />
+            <div className="w-8 p-1 mx-1  bg-white rounded-full hover:bg-slate-200">
+              <NextButtonIcon />
+            </div>
           </button>
         </div>
       </div>

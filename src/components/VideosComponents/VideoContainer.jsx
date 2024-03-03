@@ -11,7 +11,6 @@ import CategoryList from "../CategoryList";
 const VideoContainer = () => {
   // const storedVideos = useSelector((state) => state.videos);
   const [videos, setVideos] = useState([]);
-  console.log("===>videos array", videos);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   // const dispatch = useDispatch();
@@ -54,6 +53,7 @@ const VideoContainer = () => {
           ) : (
             videos.map((video, index) => (
               <NavLink
+                key={index}
                 to={`/watch?v=${
                   typeof video.id !== "object" ? video.id : video?.id?.videoId
                 }`}
@@ -61,7 +61,7 @@ const VideoContainer = () => {
                 <VideoCard
                   info={video}
                   videoId={video?.id?.videoId}
-                  key={index}
+                  key={video.id || video?.id?.videoId}
                 />
               </NavLink>
             ))

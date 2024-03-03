@@ -4,7 +4,6 @@ import {
   formatTime,
   formatNumberWithSuffix,
 } from "../../utils/constants";
-import { truncateText } from "../../utils/helper";
 import { Link } from "react-router-dom";
 
 const RelatedVideos = ({ info, videoId }) => {

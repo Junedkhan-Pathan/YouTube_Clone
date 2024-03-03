@@ -1,13 +1,10 @@
-import React, { useMemo, useState } from "react";
-// import ChannelData from "../components/HomePageContainer/WatchPageData/ChannelData";
+import React, { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import RelatedVideoPage from "./RelatedVideoPage";
 import CommentsData from "../components/CommentsChats/CommentsData";
-import LiveChat from "../components/CommentsChats/LiveChat";
 import ChannelData from "../components/ChannelData";
 
 const WatchPage = () => {
-  // const [container, setContainer] = useState(true);
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const videoSrc = useMemo(
@@ -39,7 +36,6 @@ const WatchPage = () => {
           </div>
         </div>
         <div>
-          <LiveChat />
           <RelatedVideoPage />
         </div>
       </div>

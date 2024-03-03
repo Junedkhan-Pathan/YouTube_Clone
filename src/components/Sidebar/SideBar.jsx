@@ -22,7 +22,7 @@ import {
 
 const SideBar = () => {
   const [selectedButton, setSelectedButton] = useState("Home");
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const SideBar = () => {
   const handleChannelButtonClick = (ButtonName) => {
     const Query = ButtonName.replace(" ", "+");
     setSelectedButton(Query);
-    setIsLoading(true);
+    // setIsLoading(true);
     StopLoading();
     if (Query === "Home") {
       navigate("/");
@@ -40,16 +40,16 @@ const SideBar = () => {
     }
   };
 
-  const handleExploreButtonClick = (ExploreName) => {
-    const newQuery = ExploreName.replace(" ", "+");
+  const handleExploreButtonClick = (Query) => {
+    const newQuery = Query.replace(" ", "+");
     setSelectedButton(newQuery);
-    setIsLoading(true);
+    // setIsLoading(true);
     StopLoading();
-    if (newQuery === "Home") {
-      navigate("/");
-    } else {
-      navigate(`/explore?eq=${newQuery}`);
-    }
+    navigate("/", {
+      state: {
+        category: `${Query.replace(" ", "+")}`,
+      },
+    });
   };
 
   const SideBarStyle = isMenuOpen
@@ -59,8 +59,8 @@ const SideBar = () => {
   const StopLoading = () => {
     setTimeout(() => {
       dispatch(toggleMenu());
-      setIsLoading(false);
-    }, 3000);
+      // setIsLoading(false);
+    }, 2000);
   };
 
   //This is for the Watch menu to hide the the side bar otherwise it remain their on the video.

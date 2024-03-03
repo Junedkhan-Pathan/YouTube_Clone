@@ -28,6 +28,8 @@ import CreateVideoIcon from "./CreateVideoIcon.jsx";
 import NotificationIcon from "./NotificationIcon.jsx";
 import ToggleCloseIcon from "./ToggleCloseIcon.jsx";
 import SearchIcon from "./SearchIcon.jsx";
+import PreviousButtonIcon from "./PreviousButtonIcon.jsx";
+import NextButtonIcon from "./NextButtonIcon.jsx";
 
 export {
     HomeIcon,
@@ -59,8 +61,7 @@ export {
     YouTubeLogo,
     MicIcon,
     ToggleCloseIcon,
-    SearchIcon
-
-
-
+    SearchIcon,
+    NextButtonIcon,
+    PreviousButtonIcon
 }

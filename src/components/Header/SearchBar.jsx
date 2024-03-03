@@ -57,11 +57,11 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
   };
 
   const handleSearch = (event, search) => {
+    console.log("=====target qurey", search);
     event.preventDefault();
     if (search !== "") {
       const query = search.replace(" ", "+");
       navigate(`/results?search_query=${query}`);
-      handleScrollTop();
       setShowSuggestions(false);
       setSearchQuery("");
     }
@@ -141,11 +141,10 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
           <button
             className={searchButtonStyles}
             onClick={(event) => {
-              handleSearchButtonClick();
               handleSearch(event, searchQuery);
+              handleSearchButtonClick();
             }}
           >
-            {/* <img src={searchButton} alt="search button" /> */}
             <SearchIcon />
           </button>
         </div>
@@ -159,11 +158,11 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
                   <h1 className="text-center py-4 font-bold text-lg">{`No results found for ${searchQuery}`}</h1>
                 )
               ) : (
-                <ul className="space-y-2 font-bold">
+                <ul className="flex flex-col gap-0 font-semibold">
                   {suggestions?.map((suggestion) => (
                     <li
                       key={suggestion}
-                      className="flex items-center hover:bg-gray-200 md:px-[0.7rem] py-1 max-sm:gap-4 cursor-pointer"
+                      className="flex items-center hover:bg-gray-200 md:px-[0.7rem] py-2 max-sm:gap-4 cursor-pointer"
                       onClick={(event) => handleSearch(event, suggestion)}
                     >
                       <IoSearchOutline className="md:w-10 md:h-5 mt-1 max-sm:w-10 max-sm:h-5 " />
