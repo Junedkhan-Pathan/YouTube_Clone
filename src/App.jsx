@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import SideBar from "./components/sideBar/SideBar";
 import { useSelector } from "react-redux";
 import Header from "./components/Header/Header";
+import SideBar from "./components/Sidebar/SideBar";
 
 const App = () => {
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
