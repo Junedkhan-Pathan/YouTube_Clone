@@ -1,10 +1,11 @@
 import React from "react";
 
-const NextButtonIcon = () => {
+const WatchPageLogo = () => {
   return (
-    <div className="h-6">
+    <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
+        enableBackground="new 0 0 24 24"
         height="24"
         viewBox="0 0 24 24"
         width="24"
@@ -16,10 +17,10 @@ const NextButtonIcon = () => {
           height: "100%",
         }}
       >
-        <path d="m9.4 18.4-.7-.7 5.6-5.6-5.7-5.7.7-.7 6.4 6.4-6.3 6.3z" />
+        <path d="m11 7 6 3.5-6 3.5V7zm7 13H4V6H3v15h15v-1zm3-2H6V3h15v15zM7 17h13V4H7v13z" />
       </svg>
     </div>
   );
 };
 
-export default NextButtonIcon;
+export default WatchPageLogo;

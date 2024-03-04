@@ -7,6 +7,9 @@ import store from "./store/store.js";
 import App from "./App.jsx";
 import SearchResults from "./components/SearchResults.jsx";
 import VideoContainer from "./components/VideosComponents/VideoContainer.jsx";
+import ShortsPage from "./pages/ShortsPage.jsx";
+import SubscriptionPage from "./pages/SubscriptionPage.jsx";
+import FeedYouPage from "./pages/FeedYouPage.jsx";
 const WatchPage = lazy(() => import("./pages/WatchPage.jsx"));
 
 const router = createBrowserRouter([
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
             <WatchPage />
           </Suspense>
         ),
+      },
+      {
+        path: "/shorts",
+        element: <ShortsPage />,
+      },
+      {
+        path: "/feed/subscription",
+        element: <SubscriptionPage />,
+      },
+      {
+        path: "/feed/you",
+        element: <FeedYouPage />,
       },
     ],
   },

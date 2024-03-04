@@ -27,52 +27,48 @@ export const Home = [
   {
     icon: <HomeIcon />,
     name: "Home",
+    to: "/",
   },
   {
     icon: <ShortsIcon />,
     name: "Shorts",
+    to: "/shorts",
   },
   {
     icon: <SubscriptionsIcon />,
     name: "Subscriptions",
+    to: "/feed/subscription",
   },
 ];
 
 export const Subscriptions = [
   {
-    src: "https://yt3.googleusercontent.com/eu051krrRNQMMi5h6ynfnvhFJzxzSKulJQ42g5v72MQ9Bvv8KdpNIa6yM-0iGpnDgSF0itAD=s176-c-k-c0x00ffffff-no-rj",
-    profileId: "UCpEhnqL0y41EpW2TvWAHD7Q",
-    fullname: "SET India",
+    src: "https://yt3.ggpht.com/1FEdfq3XpKE9UrkT4eOc5wLF2Bz-42sskTi0RkK4nPh4WqCbVmmrDZ5SVEV3WyvPdkfR8sw2=s176-c-k-c0x00ffffff-no-rj-mo",
+    fullname: "chai aur code",
   },
   {
     src: "https://yt3.googleusercontent.com/ytc/AOPolaSj48pypV9ilqNUztYjQ8Q760NYCAw3w1LwoWbJYQ=s176-c-k-c0x00ffffff-no-rj",
-    profileId: "UC3N9i_KvKZYP4F84FPIzgPQ",
     fullname: "Akshay Saini",
   },
   {
-    src: "https://yt3.googleusercontent.com/XE7Iq8jvJ07ptMc-HxZR_V-2XgXCb0i06i4E_dypl7xSR655WXaQeglfqNuEeuwH3oM9RKVodQ=s176-c-k-c0x00ffffff-no-rj",
-    profileId: "UCq-Fj5jknLsUf-MWSy4_brA",
-    fullname: "T-Series",
+    src: "https://yt3.googleusercontent.com/ytc/AIdro_krnyU9zev1u94JYs4opG8p1sYE3HQ9oButitIb7A=s176-c-k-c0x00ffffff-no-rj-mo",
+    fullname: "CodeWithHarry",
+  },
+  {
+    src: "https://yt3.googleusercontent.com/nhDLqeIgXMJBDIrX2bXavvHoWX0tsslDEh7k2xZ1P0W8b_CMRVigp2kxJubYEVwBcBlogZDe=s176-c-k-c0x00ffffff-no-rj",
+    fullname: "Apna College",
+  },
+  {
+    src: "https://yt3.ggpht.com/M8HHa-4HpA1tPBYyCclC5JmODA7vx77XryhQe_0_4L9bCfpYwiDr7uJc3bOb9UZKJpogSC9OvA=s176-c-k-c0x00ffffff-no-rj-mo",
+    fullname: "Sheryians Coding School",
   },
   {
     src: "https://yt3.googleusercontent.com/ytc/AIf8zZTDkajQxPa4sjDOW-c3er1szXkSAO-H9TiF4-8u_Q=s176-c-k-c0x00ffffff-no-rj",
-    profileId: "UC8butISFwT-Wl7EV0hUK0BQ",
     fullname: "freeCodeCamp",
   },
   {
-    src: "https://yt3.googleusercontent.com/l_ZIXrVEQcHTBTsmpt2CFiWJF9_0hwB3rngr1_lxozZ3Lz58Ij5TcDFOp2TYlioU2gI9RlyExw=s176-c-k-c0x00ffffff-no-rj",
-    profileId: "UCqwUrj10mAEsqezcItqvwEw",
-    fullname: "BB Ki Vines",
-  },
-  {
     src: "https://yt3.googleusercontent.com/ytc/AIf8zZTPIL9EkFafJj8HqxgEj9avK-OBX-U6p0V9NrEwSw=s176-c-k-c0x00ffffff-no-rj",
-    profileId: "UC0RhatS1pyxInC00YKjjBqQ",
     fullname: "GeeksforGeeks",
-  },
-  {
-    src: "https://yt3.googleusercontent.com/bFpwiiOB_NLCVsIcVQ9UcwBjb1RzipnMmtNfLSWpeIaHboyGkBCq4KBitmovRbStk9WvIWIZOyo=s176-c-k-c0x00ffffff-no-rj",
-    profileId: "UCIEv3lZ_tNXHzL3ox-_uUGQ",
-    fullname: "Gordon Ramsay",
   },
 ];
 
@@ -184,7 +180,7 @@ export const DummyTags = [
   "Data Structures",
 ];
 
-export const LIVE_CHAT_COUNT = 25;
+export const CHAT_COUNT = 25;
 
 export const formatTime = (time) => {
   let currentDate = new Date();

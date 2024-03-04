@@ -6,7 +6,7 @@ import {
 } from "../../utils/constants";
 import { Link } from "react-router-dom";
 
-const RelatedVideos = ({ info, videoId }) => {
+const RelatedVideos = ({ info }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { snippet, contentDetails, statistics } = info;

@@ -7,7 +7,7 @@ const YouIcon = () => {
     isActive = true;
   }
   return (
-    <div className="h-6">
+    <div>
       {isActive ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

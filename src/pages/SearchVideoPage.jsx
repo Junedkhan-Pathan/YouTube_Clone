@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { CHANNEL_INFO_API, VIDEO_DETAILS_API } from "../utils/APIList";
 import {
   formatTime,
   formatNumberWithSuffix,
   timeDuration,
 } from "../utils/constants";
+import { getChannelInfo, getVideoDataById } from "../apis/videoApi";
 
 const SearchVideoPage = ({ info, videoId }) => {
   const [videos, setVideos] = useState([]);
   const [channelPicture, setChannelPicture] = useState([]);
-  const [channelInfo, setChannelInfo] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
   const { snippet } = info;
   const { title, thumbnails, publishedAt, description, channelTitle } = snippet;
@@ -18,40 +17,43 @@ const SearchVideoPage = ({ info, videoId }) => {
   let calender = formatTime(publishedAt);
   const duration = timeDuration(videos?.contentDetails?.duration);
 
-  useEffect(() => {
-    fetchVideoData();
-  }, [videoId]);
-
-  const fetchVideoData = async () => {
+  const getVideosById = async () => {
     try {
-      const data = await fetch(VIDEO_DETAILS_API + "&id=" + videoId);
-      const response = await data.json();
-      setVideos(response?.items?.[0] || {}); // Ensure items array exists
+      if (!videoId) return;
+      const video = await getVideoDataById(videoId);
+      if (!video) {
+        return null;
+      }
+      setVideos(video || {});
     } catch (error) {
-      console.log("Error while fetching video details", error);
+      console.log("Error while fethnig video by its id", error);
     }
   };
+
+  const channelData = async (id) => {
+    try {
+      const res = await getChannelInfo(id);
+      if (!res) {
+        return null;
+      }
+      setChannelPicture(res.snippet?.thumbnails?.default?.url);
+    } catch (error) {
+      console.log(
+        "Erroe in the searchVideo component while fetching channelInfo",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    getVideosById();
+  }, [videoId]);
 
   useEffect(() => {
     if (info?.snippet?.channelId) {
-      fetchChannelData();
+      channelData(info?.snippet?.channelId);
     }
   }, [info?.snippet?.channelId]);
-
-  const fetchChannelData = async () => {
-    try {
-      const data = await fetch(
-        CHANNEL_INFO_API + "&id=" + info?.snippet?.channelId
-      );
-      const response = await data.json();
-      setChannelInfo(response?.items[0]);
-      const profilePictureUrl =
-        response?.items?.[0]?.snippet?.thumbnails?.default?.url || "";
-      setChannelPicture(profilePictureUrl);
-    } catch (error) {
-      console.log("Couldn't fetch channel profile picture", error);
-    }
-  };
 
   return (
     <div
@@ -86,14 +88,14 @@ const SearchVideoPage = ({ info, videoId }) => {
           </div>
         </div>
       </div>
-      <div className="md:flex md:flex-col max-sm:flex max-sm:flex-col max-sm:space-y-2 max-sm:my-2 max-sm:gap-y-2 md:space-y-2 lg:space-y-6 md:my-1 max-sm:mx-[0.85rem]">
-        <div className="md:flex md:flex-col gap-1 max-sm:flex max-sm:flex-col">
-          <h1 className="font-bold md:text-sm lg:text-md">{title}</h1>
-          <div className="md:flex md:gap-1 text-xs max-sm:flex max-sm:gap-1">
-            <span>{viewCount} Views</span>
-            <span>•</span>
-            <span>{calender}</span>
-          </div>
+      <div className="md:flex md:flex-col justify-start items-start max-sm:flex max-sm:flex-col max-sm:space-y-2 max-sm:my-2 max-sm:gap-y-2  lg:space-y-6 max-sm:mx-[0.85rem]">
+        <div className="md:flex md:flex-col max-sm:flex max-sm:flex-col">
+          <h1 className="font-medium md:text-md lg:text-lg">{title}</h1>
+        </div>
+        <div className="text-stone-600 md:flex md:gap-1 text-xs max-sm:flex max-sm:gap-1">
+          <span>{viewCount} Views</span>
+          <span>•</span>
+          <span>{calender}</span>
         </div>
         <div className="flex items-center gap-2">
           <img
@@ -101,9 +103,11 @@ const SearchVideoPage = ({ info, videoId }) => {
             alt="ChannelProfile"
             className="rounded-full w-8 max-sm:w-8"
           />
-          <span className="text-sm">{channelTitle}</span>
+          <span className="text-stone-600 hover:text-stone-900 text-sm">
+            {channelTitle}
+          </span>
         </div>
-        <div className="text-sm">
+        <div className="text-stone-600 text-sm">
           <span>{description}</span>
         </div>
       </div>

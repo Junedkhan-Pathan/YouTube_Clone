@@ -3,11 +3,11 @@ import React from "react";
 const SubscriptionsIcon = () => {
   let isActive = false;
 
-  if (location.href.includes("/explore") === true) {
+  if (location.href.includes("/feed/subscription") === true) {
     isActive = true;
   }
   return (
-    <div className="h-6">
+    <div>
       {isActive ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -5,21 +5,18 @@ import { getAllVideos } from "../apis/videoApi";
 
 const RelatedVideoPage = () => {
   const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getVideos();
   }, []);
 
   const getVideos = async () => {
-    setLoading(true);
     try {
       const videos = await getAllVideos();
       if (!videos) {
         throw new Error("Somthing went wrong while fetching releted videos");
       }
       setVideos(videos);
-      setLoading(false);
     } catch (error) {
       setError(error);
       console.log("Error while fething the releted videos..", error);

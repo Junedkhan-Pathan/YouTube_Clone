@@ -56,7 +56,7 @@ const CategoryList = () => {
             className="bg-white absolute left-0 "
             onClick={() => sliderHandler("previous")}
           >
-            <div className="w-8 p-1 mx-1 bg-white rounded-full hover:bg-gray-200">
+            <div className="w-8 m-1 bg-white rounded-full hover:bg-gray-200">
               <PreviousButtonIcon />
             </div>
           </button>
@@ -66,7 +66,7 @@ const CategoryList = () => {
             className="bg-white absolute right-0 "
             onClick={() => sliderHandler("next")}
           >
-            <div className="w-8 p-1 mx-1  bg-white rounded-full hover:bg-slate-200">
+            <div className="w-8 m-1  bg-white rounded-full hover:bg-slate-200">
               <NextButtonIcon />
             </div>
           </button>

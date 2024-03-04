@@ -46,23 +46,18 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
 
   // Focus on the click and blur when leave func
   const focusAndBlurHandler = () => {
-    setIsInputFocused((prev) => !prev);
-    setShowSuggestions((prev) => !prev);
-  };
-
-  const handleClearSearch = (event) => {
-    event.preventDefault();
-    setSearchQuery("");
-    search.current.focus();
+    //here we wrap with setTime func bcoz if dont do it then it close before the clicking on the search li buttons of suggestion.
+    setTimeout(() => {
+      setIsInputFocused((prev) => !prev);
+      setShowSuggestions((prev) => !prev);
+    }, 50);
   };
 
   const handleSearch = (event, search) => {
-    console.log("=====target qurey", search);
     event.preventDefault();
     if (search !== "") {
       const query = search.replace(" ", "+");
       navigate(`/results?search_query=${query}`);
-      setShowSuggestions(false);
       setSearchQuery("");
     }
   };
@@ -99,7 +94,10 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
             <div className="flex">
               <button
                 onClick={() => setIsminiScreen(false)}
-                onFocus={handleClearSearch}
+                onFocus={() => {
+                  setSearchQuery("");
+                  search.current.focus();
+                }}
               >
                 <BsArrowLeftShort className="text-4xl" />
               </button>
@@ -107,8 +105,8 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
           )}
 
           {isInputFocused && (
-            <div className="absolute flex items-center lg:ml-[1.4rem] md:ml-[1.4rem]">
-              <div className=" max-sm:hidden">
+            <div className="absolute flex items-center lg:ml-[1.4rem] md:ml-[1.4rem] xs:ml-[1rem]">
+              <div className="max-sm:hidden ">
                 <SearchIcon />
               </div>
             </div>
@@ -122,7 +120,13 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
                   : "max-sm:hidden"
               } absolute lg:right-[27rem] md:right-[18.8rem] flex items-center`}
             >
-              <button onClick={handleClearSearch} className={`mr-6`}>
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  search.current.focus();
+                }}
+                className={`mr-6`}
+              >
                 <ToggleCloseIcon />
               </button>
             </div>
@@ -158,7 +162,7 @@ const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
                   <h1 className="text-center py-4 font-bold text-lg">{`No results found for ${searchQuery}`}</h1>
                 )
               ) : (
-                <ul className="flex flex-col gap-0 font-semibold">
+                <ul className="flex flex-col font-semibold">
                   {suggestions?.map((suggestion) => (
                     <li
                       key={suggestion}

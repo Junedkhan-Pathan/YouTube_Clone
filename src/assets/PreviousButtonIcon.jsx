@@ -2,7 +2,7 @@ import React from "react";
 
 const PreviousButtonIcon = () => {
   return (
-    <div>
+    <div className="h-6">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"

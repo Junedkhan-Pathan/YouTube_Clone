@@ -22,46 +22,14 @@ import {
 
 const SideBar = () => {
   const [selectedButton, setSelectedButton] = useState("Home");
-  // const [isLoading, setIsLoading] = useState(false);
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleChannelButtonClick = (ButtonName) => {
-    const Query = ButtonName.replace(" ", "+");
-    setSelectedButton(Query);
-    // setIsLoading(true);
-    StopLoading();
-    if (Query === "Home") {
-      navigate("/");
-    } else {
-      navigate(`/channel?cId=${Query}`);
-    }
-  };
-
-  const handleExploreButtonClick = (Query) => {
-    const newQuery = Query.replace(" ", "+");
-    setSelectedButton(newQuery);
-    // setIsLoading(true);
-    StopLoading();
-    navigate("/", {
-      state: {
-        category: `${Query.replace(" ", "+")}`,
-      },
-    });
-  };
-
   const SideBarStyle = isMenuOpen
     ? "sidebar-open fixed left-0 md:w-[30vw] lg:w-[19vw] max-sm:w-[60vw] h-full bg-white z-50 text-sm md:top-0 max-sm:top-0 shadow-gray-700 shadow-2xl transition-shadow duration-400"
     : "m-2 fixed max-sm:hidden md:flex-col text-[0.69rem] mt-[73px]";
-
-  const StopLoading = () => {
-    setTimeout(() => {
-      dispatch(toggleMenu());
-      // setIsLoading(false);
-    }, 2000);
-  };
 
   //This is for the Watch menu to hide the the side bar otherwise it remain their on the video.
   if (!isMenuOpen) {
@@ -82,19 +50,21 @@ const SideBar = () => {
             </NavLink>
           </div>
           <div className="py-4 hover:bg-gray-100 hover:rounded-lg cursor-pointer flex flex-col items-center gap-1">
-            <NavLink to="#">
+            <NavLink to="/shorts">
               <ShortsIcon />
               <span>Shorts</span>
             </NavLink>
           </div>
           <div className="py-4 hover:bg-gray-100 hover:rounded-lg cursor-pointer flex flex-col items-center gap-1">
-            <NavLink to="#">
-              <SubscriptionsIcon />
+            <NavLink to="/feed/subscription">
+              <div className="w-6 m-auto">
+                <SubscriptionsIcon />
+              </div>
               <span>Subscriptions</span>
             </NavLink>
           </div>
           <div className="py-4 hover:bg-gray-100 hover:rounded-lg cursor-pointer flex flex-col items-center gap-1">
-            <NavLink to="#">
+            <NavLink to="/feed/you">
               <YouIcon />
               <span>You</span>
             </NavLink>
@@ -103,7 +73,7 @@ const SideBar = () => {
       ) : (
         //If sidebar is opened
         <>
-          {/* Toggle and Logo Button  */}
+          {/* Toggle button and Logo  */}
           <div className="fixed flex items-center md:w-[30vw] lg:w-[19vw] max-sm:w-[60vw] md:gap-2 max-sm:gap-1 bg-white px-[1.35rem] md:h-[3.8rem] max-sm:px-[0.35rem] max-sm:h-[4.6rem]">
             <div
               className="p-2 cursor-pointer text-black hover:bg-gray-200 hover:rounded-full"
@@ -122,29 +92,26 @@ const SideBar = () => {
           <div className="flex flex-col gap-y-1 md:px-4 mt-[35px] h-screen overflow-y-auto max-sm:mt-[38px] py-8 sidebar">
             {/* Main links  */}
             <ul className="flex flex-col">
-              {Home.map(({ icon, name }) => {
+              {Home.map(({ icon, name, to }) => {
                 return (
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) => {
-                      `${
-                        isActive
-                          ? "bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
-                          : ""
-                      }`;
+                  <li
+                    className={`list-none py-[4px] pl-[13px] rounded-lg cursor-pointer hover:bg-gray-100 lg:hover:w-[16.2vw] md:hover:w-[25.5vw] hover:w-[58.5vw]
+                  ${
+                    selectedButton === name
+                      ? "font-bold bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
+                      : ""
+                  }`}
+                    onClick={() => {
+                      navigate(to);
+                      setSelectedButton(name);
+                      dispatch(toggleMenu());
                     }}
-                    // onClick={() => handleExploreButtonClick(name)}
                   >
-                    <div
-                      key={name}
-                      className="`list-none py-[4px] pl-[13px] rounded-lg cursor-pointer hover:bg-gray-100 lg:hover:w-[16.2vw] md:hover:w-[25.5vw] hover:w-[58.5vw]"
-                    >
-                      <button className=" h-9 flex items-center gap-5">
-                        {icon}
-                        <span>{name}</span>
-                      </button>
+                    <div className=" h-9 flex items-center gap-5">
+                      {icon}
+                      <span>{name}</span>
                     </div>
-                  </NavLink>
+                  </li>
                 );
               })}
             </ul>
@@ -158,20 +125,28 @@ const SideBar = () => {
               <h1 className="md:font-bold ml-3 mb-2 md:text-lg text-md font-bold">
                 Subscriptions
               </h1>
-              {Subscriptions.map(({ src, profileId, fullname }) => {
+              {Subscriptions.map(({ src, fullname }) => {
                 return (
-                  <div key={profileId}>
+                  <div key={fullname}>
                     <li
                       className={`list-none py-[10px] pl-[13px] rounded-lg cursor-pointer hover:bg-gray-100 hover:rounded-lg lg:hover:w-[16.2vw] md:hover:w-[25.5vw] hover:w-[58.5vw] ${
                         selectedButton === fullname
-                          ? "bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
+                          ? "font-bold bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
                           : ""
                       }`}
-                      onClick={() => handleChannelButtonClick(fullname)}
+                      onClick={() => {
+                        navigate(`/channel?cId=${fullname.replace(" ", "+")}`);
+                        setSelectedButton(fullname);
+                        dispatch(toggleMenu());
+                      }}
                     >
                       <div className="flex items-center gap-5">
                         <img src={src} alt="" className="rounded-full w-5" />
-                        <span className="">{fullname}</span>
+                        <span className="">
+                          {fullname.length > 20
+                            ? fullname.slice(0, 20) + ".."
+                            : fullname}
+                        </span>
                       </div>
                     </li>
                   </div>
@@ -194,10 +169,18 @@ const SideBar = () => {
                     <li
                       className={`list-none py-[9px] pl-[13px] rounded-lg cursor-pointer hover:bg-gray-100 hover:rounded-lg lg:hover:w-[16.2vw] md:hover:w-[25.5vw] hover:w-[58.5vw] ${
                         selectedButton === name
-                          ? "bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
+                          ? "font-bold bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
                           : ""
                       }`}
-                      onClick={() => handleExploreButtonClick(name)}
+                      onClick={() => {
+                        navigate("/", {
+                          state: {
+                            category: `${name.replace(" ", "+")}`,
+                          },
+                        });
+                        setSelectedButton(name);
+                        dispatch(toggleMenu());
+                      }}
                     >
                       <div className="flex items-center gap-5">
                         {icon}
@@ -224,10 +207,18 @@ const SideBar = () => {
                     <li
                       className={`list-none py-[9px] pl-[13px] rounded-lg cursor-pointer hover:bg-gray-100 hover:rounded-lg lg:hover:w-[16.2vw] md:hover:w-[25.5vw]  hover:w-[58.5vw] ${
                         selectedButton === name
-                          ? "bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
+                          ? "font-bold bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
                           : ""
                       }`}
-                      onClick={() => handleExploreButtonClick(name)}
+                      onClick={() => {
+                        navigate("/", {
+                          state: {
+                            category: `${name.replace(" ", "+")}`,
+                          },
+                        });
+                        setSelectedButton(name);
+                        dispatch(toggleMenu());
+                      }}
                     >
                       <div className="flex items-center gap-5">
                         <span className="text-red-600">{icon}</span>
@@ -251,9 +242,12 @@ const SideBar = () => {
                     <li
                       className={`list-none py-[9px] pl-[13px] rounded-lg cursor-pointer hover:bg-gray-100 hover:rounded-lg lg:hover:w-[16.2vw] md:hover:w-[25.5vw] hover:w-[58.5vw} ${
                         selectedButton === name
-                          ? "bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
+                          ? "font-bold bg-gray-100 lg:w-[16.2vw] md:w-[25.5vw] max-sm:w-[58.5vw]"
                           : ""
                       }`}
+                      onClick={() => {
+                        navigate("#");
+                      }}
                     >
                       <button className="flex items-center gap-5">
                         {icon}
