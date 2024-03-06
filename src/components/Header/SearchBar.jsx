@@ -6,7 +6,7 @@ import { searchedResultsCache } from "../../store/searchSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToggleCloseIcon, SearchIcon } from "../../assets/Index";
-import { getSearchSuggestions } from "../../apis/videoApi";
+import { getSearchSuggestions } from "../../apis/youTubeApis";
 
 const SearchBar = ({ isMiniScreen, setIsminiScreen }) => {
   const [searchQuery, setSearchQuery] = useState("");

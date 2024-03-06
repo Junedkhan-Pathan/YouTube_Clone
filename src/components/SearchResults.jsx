@@ -4,7 +4,7 @@ import CustomError from "./Error/CustomError";
 import SearchVideoPage from "../pages/SearchVideoPage";
 import SearchVideoShimmer from "./ShimmerUI/SearchVideoShimmer";
 import CategoryList from "./CategoryList";
-import { getAllVideos } from "../apis/videoApi";
+import { getAllVideos } from "../apis/youTubeApis";
 import ScrollToTop from "../utils/ScrollToTop";
 
 const SearchResults = () => {

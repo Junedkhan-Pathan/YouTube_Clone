@@ -11,7 +11,7 @@ const SubscriptionPage = () => {
             <SubscriptionsIcon />
           </div>
           <h1 className="text-2xl font-normal">Don't miss new videos</h1>
-          <p>Sign in to see updates from your favourite Official YouTube </p>
+          <p>Sign in to official YouTube to see updates from your favourite</p>
           <a
             className="text-blue-600 "
             target="_blank"

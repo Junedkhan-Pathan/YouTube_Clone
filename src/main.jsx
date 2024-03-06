@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store/store.js";
+import { store } from "./store/store.js";
 import App from "./App.jsx";
 import SearchResults from "./components/SearchResults.jsx";
 import VideoContainer from "./components/VideosComponents/VideoContainer.jsx";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiMenuAltLeft } from "react-icons/bi";
 import Comments from "./Comments";
-import { getCommentsOfVideos } from "../../apis/videoApi";
+import { getCommentsOfVideos } from "../../apis/youTubeApis";
 
 const CommentsData = ({ videoId }) => {
   const [comments, setComments] = useState([]);

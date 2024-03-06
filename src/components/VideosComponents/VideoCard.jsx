@@ -5,22 +5,13 @@ import {
   formatNumberWithSuffix,
 } from "../../utils/constants";
 import { Link, useNavigate } from "react-router-dom";
-import { getChannelInfo, getVideoDataById } from "../../apis/videoApi";
-import { useDispatch } from "react-redux";
-import { addChannel } from "../../store/channelSlice";
+import { getChannelInfo, getVideoDataById } from "../../apis/youTubeApis";
 
 const VideoCard = ({ info, videoId }) => {
   const [videos, setVideos] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
   const [channelPhoto, setChannelPhoto] = useState("");
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (info) {
-      channelData();
-    }
-  }, [info]);
 
   const channelData = async () => {
     try {
@@ -29,10 +20,9 @@ const VideoCard = ({ info, videoId }) => {
         return null;
       }
       setChannelPhoto(res.snippet?.thumbnails?.default?.url);
-      // dispatch(addChannel(res));
     } catch (error) {
       console.log(
-        "Erroe in the videocard component while fetching channelInfo",
+        "Error in the videocard component while fetching channelInfo",
         error
       );
     }
@@ -50,6 +40,12 @@ const VideoCard = ({ info, videoId }) => {
       console.log("Error while fethnig video by its id", error);
     }
   };
+
+  useEffect(() => {
+    if (info) {
+      channelData();
+    }
+  }, [info]);
 
   useEffect(() => {
     getVideosById();

@@ -3,17 +3,13 @@ import VideoCard from "./VideoCard";
 import VideoShimmer from "../ShimmerUI/VideoShimmer";
 import CustomError from "../Error/CustomError";
 import { NavLink, useLocation, useSearchParams } from "react-router-dom";
-import { getAllVideos } from "../../apis/videoApi";
-// import { useDispatch, useSelector } from "react-redux";
-// import { addVideos } from "../../store/videosSlice";
+import { getAllVideos } from "../../apis/youTubeApis";
 import CategoryList from "../CategoryList";
 
 const VideoContainer = () => {
-  // const storedVideos = useSelector((state) => state.videos);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const dispatch = useDispatch();
   const location = useLocation();
   const [searchParams, _] = useSearchParams();
   const channelName = searchParams.get("cId");
@@ -31,7 +27,6 @@ const VideoContainer = () => {
         throw new Error("Somthing went wrong while fetching videos");
       }
       setVideos(videos);
-      // dispatch(addVideos(videos));
       setLoading(false);
     } catch (error) {
       setError(error);
@@ -51,7 +46,7 @@ const VideoContainer = () => {
           {loading ? (
             <VideoShimmer />
           ) : (
-            videos.map((video, index) => (
+            videos?.map((video, index) => (
               <NavLink
                 key={index}
                 to={`/watch?v=${

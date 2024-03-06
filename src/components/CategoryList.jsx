@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CategoryTagShimmer from "./ShimmerUI/CategoryTagShimmer";
 import { DummyTags } from "../utils/constants";
-import { getVideoCategoryTags } from "../apis/videoApi";
+import { getVideoCategoryTags } from "../apis/youTubeApis";
 import { PreviousButtonIcon, NextButtonIcon } from "../assets/Index.js";
 
 const CategoryList = () => {
@@ -12,7 +12,12 @@ const CategoryList = () => {
   const [loading, setLoading] = useState(false);
   const [hideButton, setHideButton] = useState("previous");
   const [tags, setTags] = useState([]);
+  // const location = useLocation();
 
+  // const category = location.state?.category;
+  // if(category){
+  //   setSelectedCategory(category)
+  // }
   const fetchTags = async () => {
     setLoading(true);
     const data = await getVideoCategoryTags();

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import RelatedVideos from "../components/VideosComponents/RelatedVideos";
-import { getAllVideos } from "../apis/videoApi";
+import { getAllVideos } from "../apis/youTubeApis";
 
 const RelatedVideoPage = () => {
   const [videos, setVideos] = useState([]);

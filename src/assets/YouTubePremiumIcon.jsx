@@ -23,8 +23,8 @@ const YouTubePremiumIcon = () => {
             fy="7.11%"
             gradientTransform="matrix(.70653 0 0 1 .016 0)"
           >
-            <stop offset="0%" stop-color="#FFF" />
-            <stop offset="100%" stop-color="#FFF" stop-opacity="0" />
+            <stop offset="0%" stopColor="#FFF" />
+            <stop offset="100%" stopColor="#FFF" stopOpacity="0" />
           </radialGradient>
         </defs>
         <g fill="none" fillRule="evenodd">

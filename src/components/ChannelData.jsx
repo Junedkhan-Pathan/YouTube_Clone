@@ -7,7 +7,7 @@ import { PiShareFat, PiDotsThreeBold } from "react-icons/pi";
 import { MdOutlineDownloading } from "react-icons/md";
 import { HiOutlineChevronDown } from "react-icons/hi2";
 import { formatNumberWithSuffix, formatTime } from "../utils/constants";
-import { getChannelInfo, getVideoDataById } from "../apis/videoApi";
+import { getChannelInfo, getVideoDataById } from "../apis/youTubeApis";
 
 const ChannelData = ({ videoId }) => {
   const [videoData, setVideoData] = useState({});

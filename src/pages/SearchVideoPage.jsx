@@ -4,7 +4,7 @@ import {
   formatNumberWithSuffix,
   timeDuration,
 } from "../utils/constants";
-import { getChannelInfo, getVideoDataById } from "../apis/videoApi";
+import { getChannelInfo, getVideoDataById } from "../apis/youTubeApis";
 
 const SearchVideoPage = ({ info, videoId }) => {
   const [videos, setVideos] = useState([]);
