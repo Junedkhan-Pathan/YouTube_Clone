@@ -6,20 +6,32 @@ import {
 } from "../../utils/constants";
 import { Link, useNavigate } from "react-router-dom";
 import { getChannelInfo, getVideoDataById } from "../../apis/youTubeApis";
+import { useDispatch, useSelector } from "react-redux";
+import { addChannel } from "../../store/channelSlice";
+import { addVideos } from "../../store/videosSlice";
 
 const VideoCard = ({ info, videoId }) => {
   const [videos, setVideos] = useState([]);
+  const storedChannels = useSelector((state) => state.channels);
+  const storedVideos = useSelector((state) => state.videos);
   const [isHovered, setIsHovered] = useState(false);
   const [channelPhoto, setChannelPhoto] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const channelData = async () => {
+    if (!info?.snippet?.channelId) return;
     try {
-      const res = await getChannelInfo(info?.snippet?.channelId);
-      if (!res) {
-        return null;
+      if (storedChannels[info?.snippet?.channelId]) {
+        setChannelPhoto(info?.snippet?.thumbnails?.default?.url);
+      } else {
+        const res = await getChannelInfo(info?.snippet?.channelId);
+        if (!res) {
+          return null;
+        }
+        setChannelPhoto(res.snippet?.thumbnails["default"]?.url);
+        dispatch(addChannel({ [info?.snippet?.channelId]: res }));
       }
-      setChannelPhoto(res.snippet?.thumbnails?.default?.url);
     } catch (error) {
       console.log(
         "Error in the videocard component while fetching channelInfo",
@@ -29,13 +41,18 @@ const VideoCard = ({ info, videoId }) => {
   };
 
   const getVideosById = async () => {
+    if (!videoId) return;
     try {
-      if (!videoId) return;
-      const video = await getVideoDataById(videoId);
-      if (!video) {
-        return null;
+      if (storedVideos[videoId]) {
+        setVideos(storedVideos[videoId]);
+      } else {
+        const video = await getVideoDataById(videoId);
+        if (!video) {
+          return null;
+        }
+        setVideos(video || {});
+        dispatch(addVideos({ [videoId]: video }));
       }
-      setVideos(video || {});
     } catch (error) {
       console.log("Error while fethnig video by its id", error);
     }

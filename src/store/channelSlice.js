@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const channelSlice = createSlice({
     name: "channels",
-    initialState: [],
+    initialState: {},
     reducers: {
         addChannel: (state, action) => {
-            state.push(action.payload)
+            state = Object.assign(state, action.payload)
         },
         getChannelById: (state, action) => {
             const channel = state.find((item) => item.id === action.payload);

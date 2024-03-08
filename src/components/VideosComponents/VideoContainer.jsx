@@ -5,14 +5,20 @@ import CustomError from "../Error/CustomError";
 import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import { getAllVideos } from "../../apis/youTubeApis";
 import CategoryList from "../CategoryList";
+import { useDispatch, useSelector } from "react-redux";
+import { addVideos } from "../../store/videosSlice";
+import { addQueryData, getQueryData } from "../../store/queryDataSlice";
 
 const VideoContainer = () => {
+  // const [videos, setVideos] = useState([]);
+  const storedQueryData = useSelector((state) => state.query);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const location = useLocation();
   const [searchParams, _] = useSearchParams();
   const channelName = searchParams.get("cId");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getVideos();
@@ -22,11 +28,19 @@ const VideoContainer = () => {
     setLoading(true);
     const category = location?.state?.category || channelName || "All";
     try {
-      const videos = await getAllVideos(category);
-      if (!videos) {
-        throw new Error("Somthing went wrong while fetching videos");
+      if (storedQueryData[category]) {
+        setVideos(storedQueryData[category]);
+      } else {
+        const videos = await getAllVideos(category);
+        if (!videos) {
+          throw new Error("Somthing went wrong while fetching videos");
+        }
+        setVideos(videos);
+        dispatch(addQueryData({ [category]: videos }));
+        await videos?.map((video) => {
+          dispatch(addVideos({ [video.id || video.id?.videoId]: video }));
+        });
       }
-      setVideos(videos);
       setLoading(false);
     } catch (error) {
       setError(error);

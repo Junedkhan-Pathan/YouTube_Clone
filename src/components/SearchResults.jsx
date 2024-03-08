@@ -6,13 +6,17 @@ import SearchVideoShimmer from "./ShimmerUI/SearchVideoShimmer";
 import CategoryList from "./CategoryList";
 import { getAllVideos } from "../apis/youTubeApis";
 import ScrollToTop from "../utils/ScrollToTop";
+import { useDispatch, useSelector } from "react-redux";
+import { addVideos } from "../store/videosSlice";
 
 const SearchResults = () => {
+  const storedVideos = useSelector((state) => state.videos);
   const [searchParam] = useSearchParams();
   const searchQuery = searchParam.get("search_query");
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getVideos();
@@ -20,12 +24,18 @@ const SearchResults = () => {
 
   const getVideos = async () => {
     setLoading(true);
+    if (!searchQuery) return;
     try {
-      const videos = await getAllVideos(searchQuery);
-      if (!videos) {
-        throw new Error("Somthing went wrong while fetching search videos");
+      if (storedVideos[searchQuery]) {
+        setVideos(storedVideos[searchQuery]);
+      } else {
+        const videos = await getAllVideos(searchQuery);
+        if (!videos) {
+          throw new Error("Somthing went wrong while fetching search videos");
+        }
+        setVideos(videos);
+        dispatch(addVideos({ [searchQuery]: videos }));
       }
-      setVideos(videos);
       setLoading(false);
     } catch (error) {
       setError(error);

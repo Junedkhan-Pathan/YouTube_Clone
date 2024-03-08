@@ -1,6 +1,6 @@
 import conf_variables from "../conf/conf"
 //for the home page all videos
-export const getAllVideos = async (query="All") => {
+export const getAllVideos = async (query = "All") => {
     const videosCategory = query === "All" ? conf_variables.defaultVideos : `${conf_variables.searchUrl}q=${query}&regionCode=IN&type=video&key=`;
     try {
         const videos = await fetch(

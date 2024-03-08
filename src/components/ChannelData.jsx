@@ -8,8 +8,13 @@ import { MdOutlineDownloading } from "react-icons/md";
 import { HiOutlineChevronDown } from "react-icons/hi2";
 import { formatNumberWithSuffix, formatTime } from "../utils/constants";
 import { getChannelInfo, getVideoDataById } from "../apis/youTubeApis";
+import { useDispatch, useSelector } from "react-redux";
+import { addChannel } from "../store/channelSlice";
+import { addVideos } from "../store/videosSlice";
 
 const ChannelData = ({ videoId }) => {
+  const storedChannels = useSelector((state) => state.channels);
+  const storedVideos = useSelector((state) => state.videos);
   const [videoData, setVideoData] = useState({});
   const [subscribe, setSubscribe] = useState(false);
   const [channelPicture, setChannelPicture] = useState("");
@@ -17,6 +22,7 @@ const ChannelData = ({ videoId }) => {
   const [like, setLike] = useState(true);
   const [disLike, setDisLike] = useState(true);
   const [showMore, setShowMore] = useState(false);
+  const dispatch = useDispatch();
 
   const subscriberCount = formatNumberWithSuffix(subScribers);
   const likeCount = formatNumberWithSuffix(videoData?.statistics?.likeCount);
@@ -24,26 +30,42 @@ const ChannelData = ({ videoId }) => {
   let calender = formatTime(videoData?.snippet?.publishedAt);
 
   const getVideosById = async () => {
+    if (!videoId) return;
     try {
-      if (!videoId) return;
-      const video = await getVideoDataById(videoId);
-      if (!video) {
-        return null;
+      if (storedVideos[videoId]) {
+        console.log("=======>stored vieos", storedVideos[videoId]);
+        setVideoData(storedVideos[videoId]);
+      } else {
+        const video = await getVideoDataById(videoId);
+        if (!video) {
+          return null;
+        }
+        setVideoData(video || {});
+        dispatch(addVideos({ [videoId]: video }));
       }
-      setVideoData(video || {});
+      if (videoData?.snippet?.channelId) {
+        channelData(videoData?.snippet?.channelId);
+      }
     } catch (error) {
       console.log("Error while fethnig video by its id", error);
     }
   };
 
   const channelData = async (id) => {
+    if (!id) return;
     try {
-      const res = await getChannelInfo(id);
-      if (!res) {
-        return null;
+      if (storedChannels[id]) {
+        setChannelPicture(storedChannels[id].snippet?.thumbnails?.default?.url);
+        setSubScribers(storedChannels[id].statistics?.subscriberCount || "");
+      } else {
+        const res = await getChannelInfo(id);
+        if (!res) {
+          return null;
+        }
+        setChannelPicture(res.snippet?.thumbnails?.default?.url);
+        setSubScribers(res.statistics?.subscriberCount || "");
+        dispatch(addChannel({ [id]: res }));
       }
-      setChannelPicture(res.snippet?.thumbnails?.default?.url);
-      setSubScribers(res.statistics?.subscriberCount || "");
     } catch (error) {
       console.log(
         "Erroe in the videocard component while fetching channelInfo",
@@ -55,12 +77,6 @@ const ChannelData = ({ videoId }) => {
   useEffect(() => {
     getVideosById();
   }, [videoId]);
-
-  useEffect(() => {
-    if (videoData?.snippet?.channelId) {
-      channelData(videoData?.snippet?.channelId);
-    }
-  }, [videoData?.snippet?.channelId]);
 
   const likeToggelHandler = () => {
     setLike(!like);

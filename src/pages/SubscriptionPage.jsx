@@ -1,5 +1,4 @@
 import React from "react";
-import WatchPageLogo from "../assets/WatchPageLogo";
 import SubscriptionsIcon from "../assets/SubscriptionsIcon";
 
 const SubscriptionPage = () => {

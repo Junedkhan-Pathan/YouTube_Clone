@@ -4,27 +4,31 @@ import CategoryTagShimmer from "./ShimmerUI/CategoryTagShimmer";
 import { DummyTags } from "../utils/constants";
 import { getVideoCategoryTags } from "../apis/youTubeApis";
 import { PreviousButtonIcon, NextButtonIcon } from "../assets/Index.js";
+import { useDispatch, useSelector } from "react-redux";
+import { addTags } from "../store/tagsSlice.js";
 
 const CategoryList = () => {
+  const storedTags = useSelector((state) => state.tags);
   const listRef = useRef();
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [loading, setLoading] = useState(false);
   const [hideButton, setHideButton] = useState("previous");
   const [tags, setTags] = useState([]);
-  // const location = useLocation();
+  const dispatch = useDispatch();
 
-  // const category = location.state?.category;
-  // if(category){
-  //   setSelectedCategory(category)
-  // }
   const fetchTags = async () => {
     setLoading(true);
-    const data = await getVideoCategoryTags();
-    if (!data) {
-      setTags(["All", ...DummyTags]);
+    if (storedTags && storedTags.length > 0) {
+      console.log("=====tags",storedTags)
+      setTags(storedTags[0]);
     } else {
+      const data = await getVideoCategoryTags();
+      if (!data) {
+        setTags(["All", ...DummyTags]);
+      }
       setTags(["All", ...data]);
+      dispatch(addTags(data));
     }
     setLoading(false);
   };
@@ -58,10 +62,10 @@ const CategoryList = () => {
       <div className={`${loading ? "hidden" : ""} max-sm:hidden`}>
         <div className={hideButton === "previous" ? "hidden" : ""}>
           <button
-            className="bg-white absolute left-0 "
+            className="bg-white absolute left-0"
             onClick={() => sliderHandler("previous")}
           >
-            <div className="w-8 m-1 bg-white rounded-full hover:bg-gray-200">
+            <div className="w-8 p-1 bg-white rounded-full hover:bg-gray-200">
               <PreviousButtonIcon />
             </div>
           </button>
@@ -71,7 +75,7 @@ const CategoryList = () => {
             className="bg-white absolute right-0 "
             onClick={() => sliderHandler("next")}
           >
-            <div className="w-8 m-1  bg-white rounded-full hover:bg-slate-200">
+            <div className="w-8 p-1  bg-white rounded-full hover:bg-slate-200">
               <NextButtonIcon />
             </div>
           </button>

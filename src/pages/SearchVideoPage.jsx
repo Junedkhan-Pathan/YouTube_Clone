@@ -5,38 +5,55 @@ import {
   timeDuration,
 } from "../utils/constants";
 import { getChannelInfo, getVideoDataById } from "../apis/youTubeApis";
+import { useDispatch, useSelector } from "react-redux";
+import { addVideos } from "../store/videosSlice";
+import { addChannel } from "../store/channelSlice";
 
 const SearchVideoPage = ({ info, videoId }) => {
+  const storedVideos = useSelector((state) => state.videos);
+  const storedChannels = useSelector((state) => state.channels);
   const [videos, setVideos] = useState([]);
   const [channelPicture, setChannelPicture] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
   const { snippet } = info;
   const { title, thumbnails, publishedAt, description, channelTitle } = snippet;
+  const dispatch = useDispatch();
 
   const viewCount = formatNumberWithSuffix(videos?.statistics?.viewCount);
   let calender = formatTime(publishedAt);
   const duration = timeDuration(videos?.contentDetails?.duration);
 
   const getVideosById = async () => {
+    if (!videoId) return;
     try {
-      if (!videoId) return;
-      const video = await getVideoDataById(videoId);
-      if (!video) {
-        return null;
+      if (storedVideos[videoId]) {
+        setVideos(storedVideos[videoId]);
+      } else {
+        const video = await getVideoDataById(videoId);
+        if (!video) {
+          return null;
+        }
+        setVideos(video || {});
+        dispatch(addVideos({ [videoId]: video }));
       }
-      setVideos(video || {});
     } catch (error) {
       console.log("Error while fethnig video by its id", error);
     }
   };
 
   const channelData = async (id) => {
+    if (!id) return;
     try {
-      const res = await getChannelInfo(id);
-      if (!res) {
-        return null;
+      if (storedChannels[id]) {
+        setChannelPicture(storedChannels[id].snippet?.thumbnails?.default?.url);
+      } else {
+        const res = await getChannelInfo(id);
+        if (!res) {
+          return null;
+        }
+        setChannelPicture(res.snippet?.thumbnails?.default?.url);
+        dispatch(addChannel({ [id]: res }));
       }
-      setChannelPicture(res.snippet?.thumbnails?.default?.url);
     } catch (error) {
       console.log(
         "Erroe in the searchVideo component while fetching channelInfo",

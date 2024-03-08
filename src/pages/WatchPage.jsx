@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import RelatedVideoPage from "./RelatedVideoPage";
-import CommentsData from "../components/CommentsChats/CommentsData";
+import CommentsData from "../components/Comments/CommentsData";
 import ChannelData from "../components/ChannelData";
 
 const WatchPage = () => {
