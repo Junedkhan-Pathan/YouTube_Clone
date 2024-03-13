@@ -49,3 +49,7 @@ Feedback and contributions are highly appreciated! If you encounter any issues o
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+Junedkhan Pathan - [@LinkedIn](https://www.linkedin.com/in/junedkhan-pathan832331)
