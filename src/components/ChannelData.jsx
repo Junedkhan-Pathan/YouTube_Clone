@@ -24,27 +24,24 @@ const ChannelData = ({ videoId }) => {
   const [showMore, setShowMore] = useState(false);
   const dispatch = useDispatch();
 
-  const subscriberCount = formatNumberWithSuffix(subScribers);
-  const likeCount = formatNumberWithSuffix(videoData?.statistics?.likeCount);
-  const viewCount = formatNumberWithSuffix(videoData?.statistics?.viewCount);
-  let calender = formatTime(videoData?.snippet?.publishedAt);
-
   const getVideosById = async () => {
+    let videoDataVariable;
     if (!videoId) return;
+    const videData = await storedVideos[videoId];
     try {
-      if (storedVideos[videoId]) {
-        console.log("=======>stored vieos", storedVideos[videoId]);
-        setVideoData(storedVideos[videoId]);
+      if (videData) {
+        videoDataVariable = videData;
       } else {
         const video = await getVideoDataById(videoId);
         if (!video) {
           return null;
         }
-        setVideoData(video || {});
+        videoDataVariable = video;
         dispatch(addVideos({ [videoId]: video }));
       }
-      if (videoData?.snippet?.channelId) {
-        channelData(videoData?.snippet?.channelId);
+      setVideoData(videoDataVariable);
+      if (videoDataVariable?.snippet?.channelId) {
+        channelData(videoDataVariable?.snippet?.channelId);
       }
     } catch (error) {
       console.log("Error while fethnig video by its id", error);
@@ -52,20 +49,28 @@ const ChannelData = ({ videoId }) => {
   };
 
   const channelData = async (id) => {
+    let subscriberCount = 0;
+    let channelImageUrl = "";
     if (!id) return;
+    const channelData = await storedChannels[id];
     try {
-      if (storedChannels[id]) {
-        setChannelPicture(storedChannels[id].snippet?.thumbnails?.default?.url);
-        setSubScribers(storedChannels[id].statistics?.subscriberCount || "");
+      if (channelData) {
+        const { snippet, statistics } = channelData;
+        subscriberCount = statistics?.subscriberCount;
+        channelImageUrl = snippet?.thumbnails?.default?.url;
       } else {
         const res = await getChannelInfo(id);
         if (!res) {
           return null;
         }
-        setChannelPicture(res.snippet?.thumbnails?.default?.url);
-        setSubScribers(res.statistics?.subscriberCount || "");
+        const { snippet, statistics } = res;
+        channelImageUrl = snippet?.thumbnails?.default?.url;
+        subscriberCount = statistics?.subsriberCount;
         dispatch(addChannel({ [id]: res }));
       }
+      setChannelPicture(channelImageUrl);
+      subscriberCount = formatNumberWithSuffix(subscriberCount);
+      setSubScribers(subscriberCount);
     } catch (error) {
       console.log(
         "Erroe in the videocard component while fetching channelInfo",
@@ -77,6 +82,10 @@ const ChannelData = ({ videoId }) => {
   useEffect(() => {
     getVideosById();
   }, [videoId]);
+
+  const likeCount = formatNumberWithSuffix(videoData?.statistics?.likeCount);
+  const viewCount = formatNumberWithSuffix(videoData?.statistics?.viewCount);
+  let calender = formatTime(videoData?.snippet?.publishedAt);
 
   const likeToggelHandler = () => {
     setLike(!like);
@@ -108,7 +117,7 @@ const ChannelData = ({ videoId }) => {
                 {videoData?.snippet?.channelTitle}
               </span>
               <span className="text-xs text-gray-500">
-                {subscriberCount} Subscribers
+                {subScribers} Subscribers
               </span>
             </div>
           </div>

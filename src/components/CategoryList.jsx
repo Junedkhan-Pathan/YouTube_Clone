@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CategoryTagShimmer from "./ShimmerUI/CategoryTagShimmer";
 import { DummyTags } from "../utils/constants";
 import { getVideoCategoryTags } from "../apis/youTubeApis";
@@ -11,17 +11,16 @@ const CategoryList = () => {
   const storedTags = useSelector((state) => state.tags);
   const listRef = useRef();
   const navigate = useNavigate();
+  const [tags, setTags] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [loading, setLoading] = useState(false);
   const [hideButton, setHideButton] = useState("previous");
-  const [tags, setTags] = useState([]);
   const dispatch = useDispatch();
 
   const fetchTags = async () => {
     setLoading(true);
     if (storedTags && storedTags.length > 0) {
-      console.log("=====tags",storedTags)
-      setTags(storedTags[0]);
+      setTags(["All", ...storedTags[0]]);
     } else {
       const data = await getVideoCategoryTags();
       if (!data) {
@@ -99,13 +98,12 @@ const CategoryList = () => {
                     return (
                       <button
                         key={index}
-                        className={`bg-gray-100 hover:bg-gray-900 hover:text-white hover:transition duration-500 px-[12px] py-[6px] rounded-lg ${
+                        className={`font-semibold bg-gray-100 hover:bg-gray-900 hover:text-white hover:transition duration-500 px-[12px] py-[6px] rounded-lg ${
                           selectedCategory === name
                             ? "bg-gray-900 text-white"
                             : ""
                         }`}
                         onClick={() => {
-                          // navigate(`/explore?eq=${name.replace(" ", "+")}`);
                           navigate("/", {
                             state: {
                               category: `${name.replace(" ", "+")}`,

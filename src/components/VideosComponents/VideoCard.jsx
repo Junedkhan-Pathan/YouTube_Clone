@@ -23,13 +23,16 @@ const VideoCard = ({ info, videoId }) => {
     if (!info?.snippet?.channelId) return;
     try {
       if (storedChannels[info?.snippet?.channelId]) {
-        setChannelPhoto(info?.snippet?.thumbnails?.default?.url);
+        setChannelPhoto(
+          storedChannels[info?.snippet?.channelId]?.snippet?.thumbnails?.default
+            ?.url
+        );
       } else {
         const res = await getChannelInfo(info?.snippet?.channelId);
         if (!res) {
           return null;
         }
-        setChannelPhoto(res.snippet?.thumbnails["default"]?.url);
+        setChannelPhoto(res.snippet?.thumbnails?.default?.url);
         dispatch(addChannel({ [info?.snippet?.channelId]: res }));
       }
     } catch (error) {
@@ -108,7 +111,7 @@ const VideoCard = ({ info, videoId }) => {
           alt="thumbnail"
           className="rounded-2xl w-[94%] mx-auto lg:w-[29vw] md:w-[40.4vw]"
         />
-        <div className="absolute max-sm:bottom-1 max-sm:right-4 lg:bottom-1 lg:right-1 md:bottom-2 md:right-4 bg-black text-white px-2 py-1 rounded-lg text-xs">
+        <div className="font-bold absolute max-sm:bottom-1 max-sm:right-4 lg:bottom-1 lg:right-1 md:bottom-2 md:right-4 bg-black text-white px-2 py-1 rounded-lg text-xs">
           {duration}
         </div>
       </div>

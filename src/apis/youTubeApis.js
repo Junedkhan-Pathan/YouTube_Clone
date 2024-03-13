@@ -19,24 +19,6 @@ export const getAllVideos = async (query = "All") => {
     }
 }
 
-// export const getAllVideosBySearchOrCategory = async (query) => {
-//     const videosCategory = `${conf_variables.searchUrl}q=${query}&regionCode=IN&type=video&key=`;
-//     try {
-//         const videos = await fetch(
-//             conf_variables.baseUrl
-//             + videosCategory
-//             + conf_variables.secretKey)
-//             .then((data) => data.json());
-//         if (!videos) {
-//             return null
-//         }
-//         return videos.items
-//     } catch (error) {
-//         console.log("Error while fetching getAllVideos :", error)
-//         throw error
-//     }
-// }
-
 //For getting the channel by id
 export const getChannelInfo = async (id) => {
     try {

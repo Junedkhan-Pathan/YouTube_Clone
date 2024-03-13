@@ -13,7 +13,7 @@ const ShortsPage = () => {
             YouTube not provide the api for the shorts
           </h1>
           <h1 className="font-bold">
-            Still you watch here..{" "}
+            Still you can watch here..{" "}
             <a
               className="text-blue-600"
               target="_blank"

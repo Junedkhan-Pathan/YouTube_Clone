@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import RelatedVideoPage from "./RelatedVideoPage";
 import CommentsData from "../components/Comments/CommentsData";
 import ChannelData from "../components/ChannelData";
+import ScrollToTop from "../utils/ScrollToTop";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
@@ -14,6 +15,7 @@ const WatchPage = () => {
 
   return (
     <div>
+      <ScrollToTop />
       <div
         className={`lg:flex max-sm:flex-col md:gap-4 md:mt-[4rem] max-sm:mt-[4.8rem] space-y-5 lg:space-y-0 md:mx-[1.82rem] max-sm:mx-[0.65rem] max-sm:w-[95vw] md:w-[92.5vw] lg:w-[64.5vw]`}
       >
