@@ -1,7 +1,5 @@
 # Welcome to My Exact YouTube Clone Project!
 
-![YouTube Clone](youtube_clone_banner.png)
-
 ## Introduction
 
 Welcome to my YouTube clone project, a meticulously crafted recreation of the beloved video-sharing platform using ReactJS, Tailwind CSS, Redux Toolkit, React Router, and more. This project represents the culmination of extensive coding, optimization, and attention to detail to deliver an experience that mirrors the functionalities and aesthetics of YouTube itself.
